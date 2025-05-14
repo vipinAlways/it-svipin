@@ -19,8 +19,24 @@
   }
 }
 
+@font-face {
+  font-family: port;
+  src: url("/public/fonts/L0x5DF4xlVMF-BfR8bXMIjhLq38.woff2");
+}
+
 body {
-  background: var(--background);
+  background: url('/backgroundVideo.mp4') no-repeat center center fixed;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+nav{
+  backdrop-filter: blur(10px);
+}
+

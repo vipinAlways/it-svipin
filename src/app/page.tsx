@@ -1,9 +1,71 @@
+"use client";
+import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
 
+import { useCallback, useRef } from "react";
 
-export default function Home() {
-  return (
-  <div>
-
-  </div>
-  );
+interface NavLink {
+  title: string;
+  section: React.RefObject<HTMLDivElement | null>;
 }
+
+const Home = () => {
+  const Homesection = useRef<HTMLDivElement>(null)
+  const ProjectSection = useRef<HTMLDivElement>(null)
+  const AboutSection = useRef<HTMLDivElement>(null)
+
+  const links:NavLink[] =[
+    {title:"Home",section:Homesection},
+    {title:"Projects",section:ProjectSection},
+    {title:"About",section:AboutSection},
+  ]
+  const scrollHandler = useCallback(
+    (ref: React.RefObject<HTMLDivElement | null>) => {
+      ref.current?.scrollIntoView({ behavior: "smooth" });
+    },
+    []
+  );
+
+  return (
+    <div className="bg-transparent relative p-4">
+      
+      <nav className="sticky top-0 left-0 z-20 w-full h-20 flex items-center justify-center">
+        <div className="max-sm:w-full w-2/5 h-16 rounded-full backdrop-blur-sm bg-[#06060644] flex items-center justify-evenly max-sm:rounded-3xl">
+          {links.map((link) => (
+            <button
+              key={link.title}
+              onClick={()=>scrollHandler(link.section)}
+              className="text-white px-4 py-2 hover:underline"
+            >
+              {link.title}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      <div
+       ref={Homesection}
+        className="flex h-screen items-center justify-center"
+      >
+        <div className="h-screen w-full">
+            <h1 className="text-4xl text-green-50 font-[port]">Vipin</h1>
+           
+        </div>
+      </div>
+
+      <div ref={ProjectSection} className="relative w-full ">
+        <HorizontalScrollCarousel />
+      </div>
+
+      <div
+        ref={AboutSection}
+        className="scroll-mt-20 flex h-screen items-center justify-center"
+      >
+        <span className="font-semibold uppercase text-neutral-500">
+          Scroll up
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default Home;
