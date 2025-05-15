@@ -2,6 +2,7 @@ interface CardType {
   url: string;
   title: string;
   id: number;
+  description:string;
 };
 
 interface Links{
@@ -11,18 +12,21 @@ interface Links{
 export const cards: CardType[] = [
   {
     url: "",
-    title: "Title 1",
+    title: "Finance Free",
     id: 1,
+    description:""
   },
   {
     url: "",
-    title: "Title 2",
+    title: "Music Raze",
     id: 2,
+    description:""
   },
   {
     url: "",
-    title: "Title 3",
+    title: "Bucket Master",
     id: 3,
+    description:""
   },
 
 ];

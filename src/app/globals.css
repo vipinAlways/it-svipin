@@ -21,7 +21,14 @@
 
 @font-face {
   font-family: port;
-  src: url("/public/fonts/L0x5DF4xlVMF-BfR8bXMIjhLq38.woff2");
+  src: url("/fonts/L0x5DF4xlVMF-BfR8bXMIjhLq38.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  overscroll-behavior: contain;
+  scroll-padding-top: 100px;
 }
 
 body {
@@ -36,7 +43,5 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-nav{
-  backdrop-filter: blur(10px);
-}
+
 
