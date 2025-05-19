@@ -32,10 +32,10 @@ html {
 }
 
 body {
-  background: url('/backgroundVideo.mp4') no-repeat center center fixed;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

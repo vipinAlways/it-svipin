@@ -29,8 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth `}
       >
         <div className="fixed top-0 left-0 w-full h-screen">
-          
-          <video
+          {/* <video
             src={"/backgroundVideo2.mp4"}
             className="w-full h-full object-cover -z-[1]"
             loop
@@ -38,13 +37,18 @@ export default function RootLayout({
             playsInline
             muted
             preload="auto" 
+          /> */}
+          <img
+            src="/image/bg6.svg"
+            alt="background"
+            className="w-full h-full object-cover -z-[1]"
           />
         </div>
-        
 
         <main className="relative z-10 text-white scroll-smooth">
-          {/* <GlobalClickSound/> */}
-          {children}</main>
+          {/* <GlobalClickSound /> */}
+          {children}
+        </main>
       </body>
     </html>
   );
