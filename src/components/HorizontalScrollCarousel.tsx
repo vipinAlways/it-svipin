@@ -1,3 +1,4 @@
+"use client"
 import React, { useRef } from "react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import { cards } from "@/constans";
@@ -18,10 +19,10 @@ const HorizontalScrollCarousel = () => {
             return (
               <motion.div
                 key={card.id}
-                className="group relative w-screen h-screen overflow-hidden"
-                initial={{ clipPath: "circle(0% at 50% 50%)" }}
-                whileInView={{ clipPath: "circle(100% at 50% 50%)" }}
-                transition={{ ease: "linear"}}
+                className="group relative w-screen h-screen overflow-hidden "
+                whileInView={{ scale:0.9 ,transition:{ ease: "easeOut",duration:0.5}}}
+                viewport={{amount:0.5}}
+                
               >
                 <div className="absolute inset-0 z-10  place-content-center flex justify-around items-center flex-1/2">
                   <div className="relative h-72 w-52">
@@ -36,6 +37,7 @@ const HorizontalScrollCarousel = () => {
               </motion.div>
             );
           })}
+          
         </motion.div>
       </div>
     </section>
