@@ -1,7 +1,7 @@
 "use client";
 import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
-
-import { useCallback, useRef } from "react";
+import Lenis from "lenis"
+import { useCallback, useEffect, useRef } from "react";
 
 interface NavLink {
   title: string;
@@ -12,6 +12,15 @@ const Home = () => {
   const Homesection = useRef<HTMLDivElement>(null)
   const ProjectSection = useRef<HTMLDivElement>(null)
   const AboutSection = useRef<HTMLDivElement>(null)
+
+  useEffect(()=>{
+    const lenis = new Lenis()
+    const raf = (time:any)=>{
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
+  },[])
 
   const links:NavLink[] =[
     {title:"Home",section:Homesection},
