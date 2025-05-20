@@ -16,7 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     const lenis = new Lenis();
-    const raf = (time: any) => {
+    const raf = (time: number) => {
       lenis.raf(time);
       requestAnimationFrame(raf);
     };
@@ -92,9 +92,10 @@ const Home = () => {
       </section>
 
       <section ref={ProjectSection} className="relative w-full ">
-        <div className="h-screen w-full flex justify-center items-center flex-col gap-1 ">
+        <div className="h-[70vh] w-full flex justify-center items-center flex-col gap-1 ">
           <motion.h1
-            whileInView={{ y: -40, opacity: 1 }}
+          initial={{opacity:0.6,y:10}}
+            whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             viewport={{ once: true }}
             className="text-7xl"
@@ -102,7 +103,8 @@ const Home = () => {
             Full-Stack Brilliance
           </motion.h1>
           <motion.h2
-            whileInView={{ y: -20, opacity: 1 }}
+          initial={{opacity:0.6,y:10}}
+            whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             viewport={{ amount: 0.5 }}
             className="text-6xl"

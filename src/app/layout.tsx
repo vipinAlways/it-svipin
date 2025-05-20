@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GlobalClickSound from "@/components/GlobalClickSound";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,25 +29,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth `}
       >
-        <div className="fixed top-0 left-0 w-full h-screen">
-          {/* <video
-            src={"/backgroundVideo2.mp4"}
-            className="w-full h-full object-cover -z-[1]"
-            loop
-            autoPlay
-            playsInline
-            muted
-            preload="auto" 
-          /> */}
-          <img
+        <div className="fixed top-0 left-0 w-full h-screen ">
+        
+       <div className="relative w-full h-full">
+           <Image
             src="/image/bg6.svg"
             alt="background"
             className="w-full h-full object-cover -z-[1]"
+            fill
+            priority
+            lazyRoot="/"
           />
+       </div>
         </div>
 
         <main className="relative z-10 text-white scroll-smooth">
-          {/* <GlobalClickSound /> */}
+          <GlobalClickSound />
           {children}
         </main>
       </body>
