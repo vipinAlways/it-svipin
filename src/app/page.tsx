@@ -1,8 +1,9 @@
 "use client";
 import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
 import Lenis from "lenis";
-import { useCallback, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { motion, useMotionValue } from "framer-motion";
+import Link from "next/link";
 
 interface NavLink {
   title: string;
@@ -14,14 +15,47 @@ const Home = () => {
   const ProjectSection = useRef<HTMLDivElement>(null);
   const AboutSection = useRef<HTMLDivElement>(null);
 
+  const [showGoTop, setShowGoTop] = useState(false);
+
   useEffect(() => {
-    const lenis = new Lenis();
-    const raf = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowGoTop(!entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (Homesection.current) {
+      observer.observe(Homesection.current);
+    }
+
+    return () => {
+      if (Homesection.current) {
+        observer.unobserve(Homesection.current);
+      }
     };
-    requestAnimationFrame(raf);
-  }, []);
+  }, [Homesection]);
+
+ const scrollY = useMotionValue(0);
+
+  useEffect(() => {
+    const lenis = new Lenis({});
+
+    const update = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(update);
+    };
+
+    lenis.on("scroll", ({ scroll }: { scroll: number }) => {
+      scrollY.set(scroll);
+    });
+
+    requestAnimationFrame(update);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, [scrollY]);
 
   const links: NavLink[] = [
     { title: "Home", section: Homesection },
@@ -54,13 +88,20 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-transparent relative p-4 ">
+    <div className="bg-transparent relative p-4 font-[port]">
       <span
         className="cursor z-10 fixed border-[2px] border-zinc-700 h-7 w-7 rounded-full shadow-md p-1"
         style={{ top: "-10px", left: "-60px" }}
       ></span>
-      <nav className="fixed top-0 left-0 z-20 w-full h-20 flex items-center justify-center">
-        <div className="max-sm:w-full w-2/5 h-16 rounded-full backdrop-blur-sm bg-[#06060644] flex items-center justify-evenly max-sm:rounded-3xl">
+      <Link
+        href={"/"}
+        className="fixed top-3 left-10 z-20 text-3xl flex items-end hover:opacity-75 transition-all duration-200 ease-linear"
+      >
+        Vipin <span>.</span> <span>_</span>
+      </Link>
+
+      <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-20 w-[30rem] h-20 flex items-center justify-center">
+        <div className="max-sm:w-full w-full h-16 rounded-full backdrop-blur-sm bg-[#06060644] flex items-center justify-evenly max-sm:rounded-3xl">
           {links.map((link) => (
             <button
               key={link.title}
@@ -75,39 +116,35 @@ const Home = () => {
 
       <section
         ref={Homesection}
-        className="flex h-screen items-center justify-center flex-col py-9"
+        id="top"
+        className="flex h-screen items-center justify-center flex-col py-9 gap-3"
       >
-        <div className="h-screen w-full flex items-center justify-center flex-col gap-3">
-          <h1 className="text-shadow-zinc-50 font-[port] text-center text-9xl font-bold gap-8 flex w-full justify-center">
-            <span>VIPIN</span> <span>ALWAYS</span>
-          </h1>
-          <p className="w-full text-center text-4xl font-bold">
-            <span>FULL-STACK WEB DEVELOPER</span>
-          </p>
-        </div>
-
-        <div>
-          <h1 className="text-4xl text-center">here are My works</h1>
-        </div>
+        <h1 className="text-shadow-zinc-50 font-[port] text-center text-9xl max-lg:text-3xl font-bold flex gap-8 justify-center">
+          <span>VIPIN</span> <span>ALWAYS</span>
+        </h1>
+        <p className="text-center text-4xl max-lg:text-2xl font-bold">
+          FULL-STACK WEB DEVELOPER
+        </p>
+        <h1 className="text-4xl text-center mt-10">here are My works</h1>
       </section>
 
-      <section ref={ProjectSection} className="relative w-full ">
-        <div className="h-[70vh] w-full flex justify-center items-center flex-col gap-1 ">
+      <section ref={ProjectSection} className="relative w-full">
+        <div className="h-screen w-full flex justify-center items-center flex-col gap-1">
           <motion.h1
-          initial={{opacity:0.6,y:10}}
+            initial={{ opacity: 0.6, y: 10 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="text-7xl"
+            className="text-7xl max-lg:text-3xl"
           >
             Full-Stack Brilliance
           </motion.h1>
           <motion.h2
-          initial={{opacity:0.6,y:10}}
+            initial={{ opacity: 0.6, y: 10 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             viewport={{ amount: 0.5 }}
-            className="text-6xl"
+            className="text-6xl max-lg:text-2xl"
           >
             Engineered by ONE
           </motion.h2>
@@ -123,6 +160,19 @@ const Home = () => {
           Scroll up
         </span>
       </section>
+
+      {showGoTop && (
+        <button
+          onClick={() =>
+            document
+              .getElementById("top")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+          className="fixed bottom-6 right-6 z-50 bg-black text-white p-3 text-3xl w-15 h-15 shadow-lg hover:bg-gray-800 transition-all "
+        >
+          &uarr;
+        </button>
+      )}
     </div>
   );
 };

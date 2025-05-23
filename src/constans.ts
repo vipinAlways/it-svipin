@@ -11,16 +11,16 @@ interface Links{
 }
 export const cards: CardType[] = [
   {
-    url: "",
+    url: "https://finance-manger.vercel.app/",
     title: "Finance Free",
     id: 1,
-    description:""
+    description:"A Finance Manager App that helps you to manage your finance and track your expenses. It is a full stack app with authentication and authorization. It is built with Next.js, Tailwind CSS, MongoDB and Node.js."
   },
   {
     url: "",
     title: "Music Raze",
     id: 2,
-    description:""
+    description:"Music Raze is a full-stack app that lets you listen to the same track with your loved ones in real-time. It features authentication and authorization, and is built using Next.js, Tanstack, Prisma, and Spotify Api."
   },
   {
     url: "",
