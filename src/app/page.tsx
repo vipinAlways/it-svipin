@@ -1,9 +1,23 @@
 "use client";
+
 import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
 import Lenis from "lenis";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { useMotionValue } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
+
+// Type definitions for Lanyard API response (minimal)
+interface DiscordUser {
+  id: string;
+  username: string;
+  avatar: string;
+}
+
+interface LanyardData {
+  discord_user: DiscordUser;
+  discord_status: "online" | "idle" | "dnd" | "offline";
+}
 
 interface NavLink {
   title: string;
@@ -14,54 +28,66 @@ const Home = () => {
   const Homesection = useRef<HTMLDivElement>(null);
   const ProjectSection = useRef<HTMLDivElement>(null);
   const AboutSection = useRef<HTMLDivElement>(null);
-
   const [showGoTop, setShowGoTop] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowGoTop(!entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
-    if (Homesection.current) {
-      observer.observe(Homesection.current);
-    }
-
-    return () => {
-      if (Homesection.current) {
-        observer.unobserve(Homesection.current);
-      }
-    };
-  }, [Homesection]);
-
- const scrollY = useMotionValue(0);
+  const [data, setStatus] = useState<LanyardData | null>(null);
+  const scrollY = useMotionValue(0);
 
   useEffect(() => {
     const lenis = new Lenis({});
-
     const update = (time: number) => {
       lenis.raf(time);
       requestAnimationFrame(update);
     };
-
     lenis.on("scroll", ({ scroll }: { scroll: number }) => {
       scrollY.set(scroll);
     });
 
     requestAnimationFrame(update);
-
-    return () => {
-      lenis.destroy();
-    };
+    return () => lenis.destroy();
   }, [scrollY]);
+
+  useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const res = await fetch(
+          `https://api.lanyard.rest/v1/users/${process.env.NEXT_PUBLIC_DISCORD_USER_ID}`
+        );
+        const json = await res.json();
+        if (json.success) {
+          setStatus(json.data);
+        }
+      } catch (error) {
+        console.error("Error fetching Discord status:", error);
+        return null;
+      }
+    };
+
+    fetchStatus();
+  }, []);
+
+ useEffect(() => {
+  const section = Homesection.current;
+  if (!section) return;
+
+  const observer = new IntersectionObserver(
+    ([entry]) => setShowGoTop(!entry.isIntersecting),
+    { threshold: 0.1 }
+  );
+
+  observer.observe(section);
+
+  return () => {
+    observer.unobserve(section);
+  };
+}, [Homesection]);
+
 
   const links: NavLink[] = [
     { title: "Home", section: Homesection },
     { title: "Projects", section: ProjectSection },
     { title: "About", section: AboutSection },
   ];
+
   const scrollHandler = useCallback(
     (ref: React.RefObject<HTMLDivElement | null>) => {
       ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -69,7 +95,14 @@ const Home = () => {
     []
   );
 
-  function position(e: MouseEvent) {
+  const statusDot = {
+    online: "bg-green-500",
+    idle: "bg-yellow-400",
+    dnd: "bg-red-500",
+    offline: "bg-gray-500",
+  }[data?.discord_status || "offline"];
+
+  const position = (e: MouseEvent) => {
     document.querySelector(".cursor")?.animate(
       {
         top: `${e.clientY}px`,
@@ -77,22 +110,28 @@ const Home = () => {
       },
       { duration: 500, fill: "forwards" }
     );
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("mousemove", position);
-
-    return () => {
-      window.removeEventListener("mousemove", position);
-    };
+    return () => window.removeEventListener("mousemove", position);
   }, []);
 
+  if (!data) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-white">Loading...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-transparent relative p-4 font-[port]">
+    <div className="bg-transparent relative p-4  px-9 font-[port]">
       <span
         className="cursor z-10 fixed border-[2px] border-zinc-700 h-7 w-7 rounded-full shadow-md p-1"
         style={{ top: "-10px", left: "-60px" }}
       ></span>
+
       <Link
         href={"/"}
         className="fixed top-3 left-10 z-20 text-3xl flex items-end hover:opacity-75 transition-all duration-200 ease-linear"
@@ -129,25 +168,41 @@ const Home = () => {
       </section>
 
       <section ref={ProjectSection} className="relative w-full">
-        <div className="h-screen w-full flex justify-center items-center flex-col gap-1">
-          <motion.h1
-            initial={{ opacity: 0.6, y: 10 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="text-7xl max-lg:text-3xl"
-          >
-            Full-Stack Brilliance
-          </motion.h1>
-          <motion.h2
-            initial={{ opacity: 0.6, y: 10 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            viewport={{ amount: 0.5 }}
-            className="text-6xl max-lg:text-2xl"
-          >
-            Engineered by ONE
-          </motion.h2>
+        <div className="w-full flex justify-center items-center flex-col gap-1">
+          <div className="flex w-full items-center justify-around flex-wrap gap-6">
+            {
+              <div className="flex items-center justify-around gap-4 w-96 h-60 text-white p-4 rounded-xl">
+                <div className="mt-1 relative w-[100px] h-[100px] md:w-[135px] md:h-[135px] col-span-4 ">
+                  <Image
+                    src={`https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.png`}
+                    className="w-full h-full rounded-2xl object-cover"
+                    alt="avatar"
+                    width={1600}
+                    height={2600}
+                    priority
+                  />
+                  <span
+                    className={`absolute bottom-1 left-1 w-4 h-4 rounded-full border-2 border-zinc-900 ${statusDot}`}
+                  />
+                </div>
+                <div>
+                  <p className="text-xl font-semibold">
+                    @{data.discord_user.username}
+                  </p>
+                  <p className="capitalize text-sm text-zinc-300">
+                    {data.discord_status}
+                  </p>
+                  <p className="text-xs text-zinc-400">
+                    {new Date().toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            }
+            <div className="text-white flex flex-col">
+              <span>Hey there, I&#39;m Vipin! 👋</span>
+              <span>I&#39;m 21</span>
+            </div>
+          </div>
         </div>
         <HorizontalScrollCarousel />
       </section>

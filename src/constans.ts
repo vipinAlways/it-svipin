@@ -5,10 +5,6 @@ interface CardType {
   description:string;
 };
 
-interface Links{
-  url:string;
-  title:string
-}
 export const cards: CardType[] = [
   {
     url: "https://finance-manger.vercel.app/",
@@ -31,17 +27,3 @@ export const cards: CardType[] = [
 
 ];
 
-export const links:Links[] = [
-  {
-    url:"home",
-    title:"Home"
-  },
-  {
-    url:"projects",
-    title:"Projects"
-  },
-  {
-    url:"about",
-    title:"About"
-  },
-]
