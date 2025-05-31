@@ -57,7 +57,7 @@ const Home = () => {
           setStatus(json.data);
         }
       } catch (error) {
-        console.error("Error fetching Discord status:", error);
+        
         return null;
       }
     };
