@@ -3,6 +3,9 @@ import React, { useRef } from "react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import { cards } from "@/constans";
 
+
+
+
 const HorizontalScrollCarousel = () => {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({

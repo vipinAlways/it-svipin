@@ -49,7 +49,7 @@ const Home = () => {
     const fetchStatus = async () => {
       try {
         const res = await fetch(
-          `https://api.lanyard.rest/v1/users/${process.env.NEXT_PUBLIC_DISCORD_USER_ID}`
+          `https://api.lanyard.rest/v1/users/733300745469952011`
         );
         const json = await res.json();
         if (json.success) {
