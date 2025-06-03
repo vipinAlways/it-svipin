@@ -24,6 +24,12 @@ export const cards: CardType[] = [
     id: 3,
     description:""
   },
+  {
+    url: "https://store-it-7qil.vercel.app/sign-in",
+    title: "Store It",
+    id: 4,
+    description:"A Store It is a full-stack app that lets you store your files in the cloud. It features authentication and authorization, and is built using Next.js and Appwrite ."
+  },
 
 ];
 

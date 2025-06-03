@@ -7,7 +7,6 @@ import { useMotionValue } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
-// Type definitions for Lanyard API response (minimal)
 interface DiscordUser {
   id: string;
   username: string;
@@ -56,8 +55,7 @@ const Home = () => {
         if (json.success) {
           setStatus(json.data);
         }
-      } catch (error) {
-        
+      } catch{
         return null;
       }
     };
@@ -65,22 +63,21 @@ const Home = () => {
     fetchStatus();
   }, []);
 
- useEffect(() => {
-  const section = Homesection.current;
-  if (!section) return;
+  useEffect(() => {
+    const section = Homesection.current;
+    if (!section) return;
 
-  const observer = new IntersectionObserver(
-    ([entry]) => setShowGoTop(!entry.isIntersecting),
-    { threshold: 0.1 }
-  );
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowGoTop(!entry.isIntersecting),
+      { threshold: 0.1 }
+    );
 
-  observer.observe(section);
+    observer.observe(section);
 
-  return () => {
-    observer.unobserve(section);
-  };
-}, [Homesection]);
-
+    return () => {
+      observer.unobserve(section);
+    };
+  }, [Homesection]);
 
   const links: NavLink[] = [
     { title: "Home", section: Homesection },
@@ -90,7 +87,7 @@ const Home = () => {
 
   const scrollHandler = useCallback(
     (ref: React.RefObject<HTMLDivElement | null>) => {
-      ref.current?.scrollIntoView({ behavior: "smooth" });
+      ref.current?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
     },
     []
   );
@@ -102,19 +99,24 @@ const Home = () => {
     offline: "bg-gray-500",
   }[data?.discord_status || "offline"];
 
-  const position = (e: MouseEvent) => {
-    document.querySelector(".cursor")?.animate(
-      {
-        top: `${e.clientY}px`,
-        left: `${e.clientX}px`,
-      },
-      { duration: 500, fill: "forwards" }
-    );
-  };
-
   useEffect(() => {
-    window.addEventListener("mousemove", position);
-    return () => window.removeEventListener("mousemove", position);
+    const position = (e: MouseEvent) => {
+      document.querySelector(".cursor")?.animate(
+        {
+          top: `${e.clientY}px`,
+          left: `${e.clientX}px`,
+        },
+        { duration: 500, fill: "forwards" }
+      );
+    };
+
+    if (typeof document !== "undefined") {
+      document.addEventListener("mousemove", position);
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", position);
+    };
   }, []);
 
   if (!data) {
@@ -200,7 +202,7 @@ const Home = () => {
             }
             <div className="text-white flex flex-col">
               <span>Hey there, I&#39;m Vipin! 👋</span>
-              <span>I&#39;m 21</span>
+              <span>I&#39;m 21 old </span>
             </div>
           </div>
         </div>
