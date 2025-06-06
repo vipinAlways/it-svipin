@@ -206,7 +206,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <HorizontalScrollCarousel />
+       <div className="h-screen relative w-full">
+         <HorizontalScrollCarousel />
+       </div>
       </section>
 
       <section
@@ -230,6 +232,9 @@ const Home = () => {
           &uarr;
         </button>
       )}
+
+
+      
     </div>
   );
 };
