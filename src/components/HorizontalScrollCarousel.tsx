@@ -1,65 +1,74 @@
-'use client';
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { cards, CardType } from "@/constans";
 
-const sections = ['Slide 1', 'Slide 2', 'Slide 3', 'Slide 4'];
+
 
 export default function HorizontalSnapScroll() {
-   const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const isScrolling = useRef(false);
 
-  // Handle wheel scroll, move one slide at a time
-const onWheel = (e: WheelEvent) => {
-  e.preventDefault(); // always block vertical scroll inside container
+useEffect(() => {
+  const container = containerRef.current;
+  if (!container) return;
 
-  if (isScrolling.current) return;
+  const handleWheel = (e: WheelEvent) => {
+    const target = e.target as HTMLElement;
+    if (!container.contains(target)) return;
 
-  if (e.deltaY > 30 && activeIndex < sections.length - 1) {
-    setActiveIndex(i => i + 1);
-    isScrolling.current = true;
-  } else if (e.deltaY < -30 && activeIndex > 0) {
-    setActiveIndex(i => i - 1);
-    isScrolling.current = true;
-  }
+    e.preventDefault(); 
 
-  setTimeout(() => {
-    isScrolling.current = false;
-  }, 700);
-};
+    if (isScrolling.current) return;
 
+    if (e.deltaY > 30 && activeIndex < cards.length - 1) {
+      setActiveIndex((i) => i + 1);
+      isScrolling.current = true;
+    } else if (e.deltaY < -30 && activeIndex > 0) {
+      setActiveIndex((i) => i - 1);
+      isScrolling.current = true;
+    }
 
- useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    setTimeout(() => {
+      isScrolling.current = false;
+    }, 700);
+  };
 
-    container.addEventListener('wheel', onWheel, { passive: false });
-    return () => container.removeEventListener('wheel', onWheel);
-  }, [activeIndex]);
+  container.addEventListener("wheel", handleWheel, { passive: false });
+
+  return () => {
+    container.removeEventListener("wheel", handleWheel);
+  };
+}, [activeIndex]);
 
 
   return (
-    <div style={{ overflow: 'hidden', height: '100vh' }} ref={containerRef} className='sticky top-0 h-[500vh] w-full'>
+    <div
+    
+      ref={containerRef}
+      className="h-screen w-full overflow-hidden "
+    >
       <motion.div
-        style={{ display: 'flex', height: '100vh' }}
+        style={{
+          display: "flex",
+          width: `${cards.length * 100}vw`,
+          height: "100vh",
+        }}
         animate={{ x: `-${activeIndex * 100}vw` }}
-        transition={{ duration: 0.7, ease: 'easeInOut' }}
+        transition={{ duration: 0.7, ease: "easeInOut" }}
       >
-        {sections.map((slide, i) => (
+        {cards.map((card:CardType, i) => (
           <div
             key={i}
             style={{
-              width: '100vw',
-              height: '100vh',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
               backgroundColor: `hsl(${i * 90}, 70%, 60%)`,
-              fontSize: '3rem',
-              userSelect: 'none',
+              fontSize: "3rem",
+              userSelect: "none",
             }}
+            className="w-full h-screen flex items-center justify-center"
           >
-            {slide}
+            {card.title}
           </div>
         ))}
       </motion.div>

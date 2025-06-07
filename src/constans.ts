@@ -1,4 +1,4 @@
-interface CardType {
+export interface CardType {
   url: string;
   title: string;
   id: number;

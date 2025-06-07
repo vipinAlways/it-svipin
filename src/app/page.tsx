@@ -55,7 +55,7 @@ const Home = () => {
         if (json.success) {
           setStatus(json.data);
         }
-      } catch{
+      } catch {
         return null;
       }
     };
@@ -87,7 +87,11 @@ const Home = () => {
 
   const scrollHandler = useCallback(
     (ref: React.RefObject<HTMLDivElement | null>) => {
-      ref.current?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+      ref.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
     },
     []
   );
@@ -120,6 +124,7 @@ const Home = () => {
   }, []);
 
   if (!data) {
+    console.log(data);
     return (
       <div className="flex items-center justify-center h-screen">
         <p className="text-white">Loading...</p>
@@ -169,7 +174,7 @@ const Home = () => {
         <h1 className="text-4xl text-center mt-10">here are My works</h1>
       </section>
 
-      <section ref={ProjectSection} className="relative w-full">
+      <section ref={ProjectSection} className="relative w-full h-full">
         <div className="w-full flex justify-center items-center flex-col gap-1">
           <div className="flex w-full items-center justify-around flex-wrap gap-6">
             {
@@ -206,9 +211,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-       <div className="h-screen relative w-full">
-         <HorizontalScrollCarousel />
-       </div>
+        <div className="h-screen sticky top-0 left-0 w-full">
+          <HorizontalScrollCarousel />
+        </div>
       </section>
 
       <section
@@ -232,9 +237,6 @@ const Home = () => {
           &uarr;
         </button>
       )}
-
-
-      
     </div>
   );
 };
