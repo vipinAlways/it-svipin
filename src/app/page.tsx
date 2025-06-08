@@ -171,54 +171,49 @@ const Home = () => {
         <p className="text-center text-4xl max-lg:text-2xl font-bold">
           FULL-STACK WEB DEVELOPER
         </p>
-        <h1 className="text-4xl text-center mt-10">here are My works</h1>
-      </section>
-
-      <section ref={ProjectSection} className="relative w-full h-full">
-        <div className="w-full flex justify-center items-center flex-col gap-1">
-          <div className="flex w-full items-center justify-around flex-wrap gap-6">
-            {
-              <div className="flex items-center justify-around gap-4 w-96 h-60 text-white p-4 rounded-xl">
-                <div className="mt-1 relative w-[100px] h-[100px] md:w-[135px] md:h-[135px] col-span-4 ">
-                  <Image
-                    src={`https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.png`}
-                    className="w-full h-full rounded-2xl object-cover"
-                    alt="avatar"
-                    width={1600}
-                    height={2600}
-                    priority
-                  />
-                  <span
-                    className={`absolute bottom-1 left-1 w-4 h-4 rounded-full border-2 border-zinc-900 ${statusDot}`}
-                  />
-                </div>
-                <div>
-                  <p className="text-xl font-semibold">
-                    @{data.discord_user.username}
-                  </p>
-                  <p className="capitalize text-sm text-zinc-300">
-                    {data.discord_status}
-                  </p>
-                  <p className="text-xs text-zinc-400">
-                    {new Date().toLocaleString()}
-                  </p>
-                </div>
+        <div className="flex w-full items-center justify-around flex-wrap gap-6">
+          {
+            <div className="flex items-center justify-around gap-4 w-96 h-60 text-white p-4 rounded-xl">
+              <div className="mt-1 relative w-[100px] h-[100px] md:w-[135px] md:h-[135px] col-span-4 ">
+                <Image
+                  src={`https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.png`}
+                  className="w-full h-full rounded-2xl object-cover"
+                  alt="avatar"
+                  width={1600}
+                  height={2600}
+                  priority
+                />
+                <span
+                  className={`absolute bottom-1 left-1 w-4 h-4 rounded-full border-2 border-zinc-900 ${statusDot}`}
+                />
               </div>
-            }
-            <div className="text-white flex flex-col">
-              <span>Hey there, I&#39;m Vipin! 👋</span>
-              <span>I&#39;m 21 old </span>
+              <div>
+                <p className="text-xl font-semibold">
+                  @{data.discord_user.username}
+                </p>
+                <p className="capitalize text-sm text-zinc-300">
+                  {data.discord_status}
+                </p>
+                <p className="text-xs text-zinc-400">
+                  {new Date().toLocaleString()}
+                </p>
+              </div>
             </div>
+          }
+          <div className="text-white flex flex-col">
+            <span>Hey there, I&#39;m Vipin! 👋</span>
+            <span>I&#39;m 21 old </span>
           </div>
         </div>
-        <div className="h-screen sticky top-0 left-0 w-full">
-          <HorizontalScrollCarousel />
-        </div>
+      </section>
+
+      <section ref={ProjectSection} className="sticky top-0 left-0 w-full h-[100vh]">
+        <HorizontalScrollCarousel />
       </section>
 
       <section
         ref={AboutSection}
-        className="scroll-mt-20 flex h-screen items-center justify-center"
+        className="flex h-screen items-center justify-center"
       >
         <span className="font-semibold uppercase text-neutral-500">
           Scroll up

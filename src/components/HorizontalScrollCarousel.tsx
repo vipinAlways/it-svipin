@@ -3,52 +3,45 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { cards, CardType } from "@/constans";
 
-
-
 export default function HorizontalSnapScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const isScrolling = useRef(false);
 
-useEffect(() => {
-  const container = containerRef.current;
-  if (!container) return;
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-  const handleWheel = (e: WheelEvent) => {
-    const target = e.target as HTMLElement;
-    if (!container.contains(target)) return;
+    const handleWheel = (e: WheelEvent) => {
+      const target = e.target as HTMLElement;
+      if (!container.contains(target)) return;
 
-    e.preventDefault(); 
+      e.preventDefault();
 
-    if (isScrolling.current) return;
+      if (isScrolling.current) return;
 
-    if (e.deltaY > 30 && activeIndex < cards.length - 1) {
-      setActiveIndex((i) => i + 1);
-      isScrolling.current = true;
-    } else if (e.deltaY < -30 && activeIndex > 0) {
-      setActiveIndex((i) => i - 1);
-      isScrolling.current = true;
-    }
+      if (e.deltaY >= 60 && activeIndex < cards.length - 1) {
+        setActiveIndex((i) => i + 1);
+        isScrolling.current = true;
+      } else if (e.deltaY <= -30 && activeIndex > 0) {
+        setActiveIndex((i) => i - 1);
+        isScrolling.current = true;
+      }
 
-    setTimeout(() => {
-      isScrolling.current = false;
-    }, 700);
-  };
+      setTimeout(() => {
+        isScrolling.current = false;
+      }, 700);
+    };
 
-  container.addEventListener("wheel", handleWheel, { passive: false });
+    container.addEventListener("wheel", handleWheel);
 
-  return () => {
-    container.removeEventListener("wheel", handleWheel);
-  };
-}, [activeIndex]);
-
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, [activeIndex]);
 
   return (
-    <div
-    
-      ref={containerRef}
-      className="h-screen w-full overflow-hidden "
-    >
+    <div ref={containerRef} className="w-full overflow-hidden">
       <motion.div
         style={{
           display: "flex",
@@ -56,9 +49,9 @@ useEffect(() => {
           height: "100vh",
         }}
         animate={{ x: `-${activeIndex * 100}vw` }}
-        transition={{ duration: 0.7, ease: "easeInOut" }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
       >
-        {cards.map((card:CardType, i) => (
+        {cards.map((card: CardType, i) => (
           <div
             key={i}
             style={{
