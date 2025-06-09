@@ -41,7 +41,7 @@ export default function HorizontalSnapScroll() {
   }, [activeIndex]);
 
   return (
-    <div ref={containerRef} className="w-full overflow-hidden">
+    <div ref={containerRef} className="w-full overflow-hidden absolute top-0 left-0">
       <motion.div
         style={{
           display: "flex",

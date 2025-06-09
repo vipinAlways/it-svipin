@@ -2,15 +2,17 @@
 
 import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
 import Lenis from "lenis";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { act, useCallback, useEffect, useRef, useState } from "react";
 import { useMotionValue } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { div } from "framer-motion/client";
 
 interface DiscordUser {
   id: string;
   username: string;
   avatar: string;
+  avtivities?: string[];
 }
 
 interface LanyardData {
@@ -22,13 +24,27 @@ interface NavLink {
   title: string;
   section: React.RefObject<HTMLDivElement | null>;
 }
-
+type Activity = {
+  application_id?: string;
+  assets: {
+    large_image: string;
+    large_text?: string;
+    small_image: string;
+    small_text?: string;
+  };
+  details?: string;
+  state?: string;
+  timestamps?: {
+    start: number;
+  };
+};
 const Home = () => {
   const Homesection = useRef<HTMLDivElement>(null);
   const ProjectSection = useRef<HTMLDivElement>(null);
   const AboutSection = useRef<HTMLDivElement>(null);
   const [showGoTop, setShowGoTop] = useState(false);
   const [data, setStatus] = useState<LanyardData | null>(null);
+  const [activites, setActivities] = useState<Activity[]>([]);
   const scrollY = useMotionValue(0);
 
   useEffect(() => {
@@ -54,6 +70,7 @@ const Home = () => {
         const json = await res.json();
         if (json.success) {
           setStatus(json.data);
+          setActivities(json.data.activities);
         }
       } catch {
         return null;
@@ -132,6 +149,22 @@ const Home = () => {
     );
   }
 
+  const fetchactivites = ({ activity }: { activity: Activity }) => {
+    const baseCDN = "https://cdn.discordapp.com/app-assets";
+    const appId = activity.application_id;
+
+    const largeImageURL = `${baseCDN}/${appId}/${activity.assets.large_image}.png`;
+    const smallImageURL = `${baseCDN}/${appId}/${activity.assets.small_image}.png`;
+
+    const startTime = activity.timestamps?.start
+      ? new Date(activity.timestamps.start).toLocaleTimeString()
+      : "Unknown";
+      console.log(largeImageURL,smallImageURL,startTime,"reeer");
+    };
+    // console.log(data, "ye hain data");
+
+    fetchactivites({ activity: activites[0] })
+
   return (
     <div className="bg-transparent relative p-4  px-9 font-[port]">
       <span
@@ -194,6 +227,20 @@ const Home = () => {
                 <p className="capitalize text-sm text-zinc-300">
                   {data.discord_status}
                 </p>
+                <div>
+                  {/* {activites.map((acti, index) => (
+                    <div key={acti.id}>
+                      <Image
+                        src={acti && acti.assets.larget_image}
+                        alt={acti.name}
+                        height={30}
+                        width={40}
+                        loading="lazy"
+                      />
+                    </div>
+                  ))} */}
+                </div>
+
                 <p className="text-xs text-zinc-400">
                   {new Date().toLocaleString()}
                 </p>
@@ -207,8 +254,10 @@ const Home = () => {
         </div>
       </section>
 
-      <section ref={ProjectSection} className="sticky top-0 left-0 w-full h-[100vh]">
-        <HorizontalScrollCarousel />
+      <section ref={ProjectSection} className="w-full h-screen">
+        <div className="w-full h-screen relative">
+          <HorizontalScrollCarousel />
+        </div>
       </section>
 
       <section
