@@ -93,7 +93,7 @@ const Home = () => {
             FULL-STACK WEB DEVELOPER
           </p>
         </div>
-        <div className="flex w-full items-start justify-evenly  flex-wrap gap-6 z-50">
+        <div className="flex w-full items-start justify-evenly max-md:flex-col flex-wrap gap-6 z-50">
           <DiscordActivity />
           <div className="text-white rounded-xl w-72 p-2 h-60 overflow-auto acti shadow-lg">
             <h1 className="text-xl font-semibold sticky top-0 backdrop-blur-sm bg-[#06060644] z-50 flex items-start justify-start space-x-2 w-full h-14">
