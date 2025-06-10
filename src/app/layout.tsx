@@ -31,7 +31,7 @@ export default function RootLayout({
       >
        
         <main className="relative z-10 text-white scroll-smooth">
-          {/* <GlobalClickSound /> */}
+          <GlobalClickSound />
           {children}
         </main>
       </body>

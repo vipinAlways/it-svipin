@@ -1,100 +1,19 @@
 "use client";
 
 import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
-import Lenis from "lenis";
-import { act, useCallback, useEffect, useRef, useState } from "react";
-import { useMotionValue } from "framer-motion";
+import { useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { div } from "framer-motion/client";
-
-interface DiscordUser {
-  id: string;
-  username: string;
-  avatar: string;
-  avtivities?: string[];
-}
-
-interface LanyardData {
-  discord_user: DiscordUser;
-  discord_status: "online" | "idle" | "dnd" | "offline";
-}
-
+import DiscordActivity from "@/components/DiscordActivity";
 interface NavLink {
   title: string;
   section: React.RefObject<HTMLDivElement | null>;
 }
-type Activity = {
-  application_id?: string;
-  assets: {
-    large_image: string;
-    large_text?: string;
-    small_image: string;
-    small_text?: string;
-  };
-  details?: string;
-  state?: string;
-  timestamps?: {
-    start: number;
-  };
-};
+
 const Home = () => {
   const Homesection = useRef<HTMLDivElement>(null);
   const ProjectSection = useRef<HTMLDivElement>(null);
   const AboutSection = useRef<HTMLDivElement>(null);
-  const [showGoTop, setShowGoTop] = useState(false);
-  const [data, setStatus] = useState<LanyardData | null>(null);
-  const [activites, setActivities] = useState<Activity[]>([]);
-  const scrollY = useMotionValue(0);
 
-  useEffect(() => {
-    const lenis = new Lenis({});
-    const update = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(update);
-    };
-    lenis.on("scroll", ({ scroll }: { scroll: number }) => {
-      scrollY.set(scroll);
-    });
-
-    requestAnimationFrame(update);
-    return () => lenis.destroy();
-  }, [scrollY]);
-
-  useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        const res = await fetch(
-          `https://api.lanyard.rest/v1/users/733300745469952011`
-        );
-        const json = await res.json();
-        if (json.success) {
-          setStatus(json.data);
-          setActivities(json.data.activities);
-        }
-      } catch {
-        return null;
-      }
-    };
-
-    fetchStatus();
-  }, []);
-
-  useEffect(() => {
-    const section = Homesection.current;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowGoTop(!entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-
-    observer.observe(section);
-
-    return () => {
-      observer.unobserve(section);
-    };
-  }, [Homesection]);
 
   const links: NavLink[] = [
     { title: "Home", section: Homesection },
@@ -112,13 +31,6 @@ const Home = () => {
     },
     []
   );
-
-  const statusDot = {
-    online: "bg-green-500",
-    idle: "bg-yellow-400",
-    dnd: "bg-red-500",
-    offline: "bg-gray-500",
-  }[data?.discord_status || "offline"];
 
   useEffect(() => {
     const position = (e: MouseEvent) => {
@@ -139,31 +51,6 @@ const Home = () => {
       document.removeEventListener("mousemove", position);
     };
   }, []);
-
-  if (!data) {
-    console.log(data);
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-white">Loading...</p>
-      </div>
-    );
-  }
-
-  const fetchactivites = ({ activity }: { activity: Activity }) => {
-    const baseCDN = "https://cdn.discordapp.com/app-assets";
-    const appId = activity.application_id;
-
-    const largeImageURL = `${baseCDN}/${appId}/${activity.assets.large_image}.png`;
-    const smallImageURL = `${baseCDN}/${appId}/${activity.assets.small_image}.png`;
-
-    const startTime = activity.timestamps?.start
-      ? new Date(activity.timestamps.start).toLocaleTimeString()
-      : "Unknown";
-      console.log(largeImageURL,smallImageURL,startTime,"reeer");
-    };
-    // console.log(data, "ye hain data");
-
-    fetchactivites({ activity: activites[0] })
 
   return (
     <div className="bg-transparent relative p-4  px-9 font-[port]">
@@ -196,60 +83,35 @@ const Home = () => {
       <section
         ref={Homesection}
         id="top"
-        className="flex h-screen items-center justify-center flex-col py-9 gap-3"
+        className="flex h-screen items-center justify-center flex-col py-9 gap-6"
       >
-        <h1 className="text-shadow-zinc-50 font-[port] text-center text-9xl max-lg:text-3xl font-bold flex gap-8 justify-center">
-          <span>VIPIN</span> <span>ALWAYS</span>
-        </h1>
-        <p className="text-center text-4xl max-lg:text-2xl font-bold">
-          FULL-STACK WEB DEVELOPER
-        </p>
-        <div className="flex w-full items-center justify-around flex-wrap gap-6">
-          {
-            <div className="flex items-center justify-around gap-4 w-96 h-60 text-white p-4 rounded-xl">
-              <div className="mt-1 relative w-[100px] h-[100px] md:w-[135px] md:h-[135px] col-span-4 ">
-                <Image
-                  src={`https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.png`}
-                  className="w-full h-full rounded-2xl object-cover"
-                  alt="avatar"
-                  width={1600}
-                  height={2600}
-                  priority
-                />
-                <span
-                  className={`absolute bottom-1 left-1 w-4 h-4 rounded-full border-2 border-zinc-900 ${statusDot}`}
-                />
-              </div>
-              <div>
-                <p className="text-xl font-semibold">
-                  @{data.discord_user.username}
-                </p>
-                <p className="capitalize text-sm text-zinc-300">
-                  {data.discord_status}
-                </p>
-                <div>
-                  {/* {activites.map((acti, index) => (
-                    <div key={acti.id}>
-                      <Image
-                        src={acti && acti.assets.larget_image}
-                        alt={acti.name}
-                        height={30}
-                        width={40}
-                        loading="lazy"
-                      />
-                    </div>
-                  ))} */}
-                </div>
+        <div>
+          <h1 className="text-shadow-zinc-50 font-[port] text-center text-9xl max-lg:text-3xl font-bold flex gap-8 justify-center">
+            <span>VIPIN</span> <span>ALWAYS</span>
+          </h1>
+          <p className="text-center text-4xl max-lg:text-2xl font-bold">
+            FULL-STACK WEB DEVELOPER
+          </p>
+        </div>
+        <div className="flex w-full items-start justify-evenly  flex-wrap gap-6 z-50">
+          <DiscordActivity />
+          <div className="text-white rounded-xl w-72 p-2 h-60 overflow-auto acti shadow-lg">
+            <h1 className="text-xl font-semibold sticky top-0 backdrop-blur-sm bg-[#06060644] z-50 flex items-start justify-start space-x-2 w-full h-14">
+              My Lore
+            </h1>
 
-                <p className="text-xs text-zinc-400">
-                  {new Date().toLocaleString()}
-                </p>
-              </div>
-            </div>
-          }
-          <div className="text-white flex flex-col">
-            <span>Hey there, I&#39;m Vipin! 👋</span>
-            <span>I&#39;m 21 old </span>
+            <span className="block mb-1">Yo, I&#39;m Vipin 👾</span>
+            <span className="block mb-1">
+              Full-stack wizard 🧙‍♂️ // React, Node, Mongo kinda vibe
+            </span>
+            <span className="block mb-1">Coding past midnight ⌨️🌙</span>
+            <span className="block mb-1">
+              21 but built like a startup founder 🚀
+            </span>
+            <span className="block mb-1">
+              Catch me live on VSCode 💻 or vibin&#39; to a podcast 🎧
+            </span>
+            <span className="block">Let&#39;s build something dope 💡✨</span>
           </div>
         </div>
       </section>
@@ -268,19 +130,6 @@ const Home = () => {
           Scroll up
         </span>
       </section>
-
-      {showGoTop && (
-        <button
-          onClick={() =>
-            document
-              .getElementById("top")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
-          className="fixed bottom-6 right-6 z-50 bg-black text-white p-3 text-3xl w-15 h-15 shadow-lg hover:bg-gray-800 transition-all "
-        >
-          &uarr;
-        </button>
-      )}
     </div>
   );
 };

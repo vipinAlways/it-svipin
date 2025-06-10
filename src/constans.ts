@@ -6,6 +6,23 @@ export interface CardType {
   images?: string[];
 };
 
+export interface Activity {
+  name: string;
+  type: number;
+  state?: string;
+  details?: string;
+  application_id?: string;
+  sync_id?: string;
+  assets?: {
+    large_image?: string;
+    large_text?: string;
+  };
+  timestamps?: {
+    start: number;
+    end?: number;
+  };
+}
+
 export const cards: CardType[] = [
   {
     url: "https://finance-manger.vercel.app/",

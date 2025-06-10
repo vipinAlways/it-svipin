@@ -41,7 +41,10 @@ export default function HorizontalSnapScroll() {
   }, [activeIndex]);
 
   return (
-    <div ref={containerRef} className="w-full overflow-hidden absolute top-0 left-0">
+    <div
+      ref={containerRef}
+      className="w-full overflow-hidden absolute top-0 left-0"
+    >
       <motion.div
         style={{
           display: "flex",
@@ -54,12 +57,7 @@ export default function HorizontalSnapScroll() {
         {cards.map((card: CardType, i) => (
           <div
             key={i}
-            style={{
-              backgroundColor: `hsl(${i * 90}, 70%, 60%)`,
-              fontSize: "3rem",
-              userSelect: "none",
-            }}
-            className="w-full h-screen flex items-center justify-center"
+            className="w-full h-screen flex items-center justify-center backdrop-blur-sm bg-[#06060618]"
           >
             {card.title}
           </div>
