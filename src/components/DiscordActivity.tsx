@@ -36,18 +36,17 @@ export default function DiscordActivity() {
     const handleWheel = (e: WheelEvent) => {
       const isScrollable = container.scrollHeight > container.clientHeight;
 
-      // If scrollable, allow normal scrolling inside it
       if (isScrollable) {
         const atTop = container.scrollTop === 0;
         const atBottom =
           container.scrollTop + container.clientHeight >= container.scrollHeight;
 
-        // Prevent page scroll when scrolling inside
+      
         if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) {
           e.stopPropagation();
         }
       } else {
-        // Not scrollable — still prevent bubbling to body
+
         e.preventDefault();
         e.stopPropagation();
       }
@@ -93,10 +92,10 @@ export default function DiscordActivity() {
  
 
   return (
-    <div className="p-2 text-white rounded-xl w-72 h-60  overflow-y-auto acti hover:scroll-auto relative flex flex-col gap-4 shadow-lg ">
-      <div className=" sticky top-0 backdrop-blur-sm bg-[#06060644] z-50 p-2 w-72 h-14 px-4 ">
-        <h2 className="text-lg font-semibold ">Current Activities</h2>
-      <p className="text-sm text-gray-400 mb-2">Status: {status}</p>
+    <div className="p-2 text-white rounded-xl w-96 max-h-80 h-fit  max-md:max-w-md overflow-y-auto acti hover:scroll-auto relative flex flex-col gap-4">
+      <div style={{paddingLeft:"10px",paddingTop:"3px"}} className=" sticky top-0 backdrop-blur-sm  p-2 w-full h-14 ">
+        <h2 className="text-2xl font-semibold ">Current Activities</h2>
+      <p className="text-lg text-gray-400 mb-2">{status}</p>
       </div>
 
       <div className="flex flex-col gap-3 ">
@@ -119,41 +118,41 @@ export default function DiscordActivity() {
                   href={`https://open.spotify.com/track/${activity.sync_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex gap-4"
+                  className="flex gap-6 w-full"
                 >
                   { imageUrl &&(
                     <Image
                       src={imageUrl}
                       alt={activity.assets?.large_text || activity.name}
-                      className="w-14 h-14 rounded-full object-cover spin "
+                      className="w-20 h-20 rounded-full object-cover spin "
                       height={56}
                       width={56}
                       loading="lazy"
                     />
                   )}
-                  <div>
-                    <p className="font-bold">{activity.details}</p>
-                    <p className="text-sm text-gray-300">{activity.state}</p>
+                  <div className="text-xl">
+                    <p className="font-bold text-wrap">{activity.details}</p>
+                    <p className="text-lg text-gray-300">{activity.state}</p>
                     {start && <LiveElapsedTimer start={start} />}
                   </div>
                 </Link>
               ) : (
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-6">
                   {imageUrl && (
                     <Image
                       src={imageUrl}
                       alt={activity.assets?.large_text || activity.name}
-                      className="w-14 h-14 rounded-md object-cover"
+                      className="w-20 h-20 rounded-md object-cover"
                       height={56}
-                      width={56}
+                      width={96}
                       loading="lazy"
                     />
                   )}
-                  <div>
-                    <p className="font-bold">
+                  <div className="text-xl">
+                    <p className="font-bold text-wrap wrap-anywhere ">
                       {activity.details || activity.name}
                     </p>
-                    <p className="text-sm text-gray-300">{activity.state}</p>
+                    <p className="text-lg text-gray-300 w-full">{activity.state}</p>
                     {start && <LiveElapsedTimer start={start} />}
                   </div>
                 </div>

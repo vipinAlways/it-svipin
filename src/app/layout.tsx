@@ -27,10 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth bg-black/80`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black/80 `}
       >
        
-        <main className="relative z-10 text-white scroll-smooth">
+        <main className="relative text-white ">
           <GlobalClickSound />
           {children}
         </main>
