@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black/80 `}
       >
        
-        <main className="relative text-white ">
+        <main style={{padding:"10px"}} className="relative text-white ">
           <GlobalClickSound />
           {children}
         </main>

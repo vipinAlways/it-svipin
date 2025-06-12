@@ -75,7 +75,6 @@ const Home = () => {
         style={{ top: "-10px", left: "-60px" }}
       ></span>
 
-
       <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-20 w-[30rem] h-20 flex items-center justify-center max-md:hidden">
         <div className="max-sm:w-full w-full h-16 rounded-full backdrop-blur-sm bg-[#06060644] flex items-center justify-evenly max-sm:rounded-3xl">
           {links.map((link) => (
@@ -99,14 +98,17 @@ const Home = () => {
           <h1 className="text-shadow-zinc-50 font-[port] text-center text-9xl max-lg:text-4xl font-bold flex gap-8 justify-center">
             <span>VIPIN</span> <span>ALWAYS</span>
           </h1>
-          <p className="text-center text-4xl max-lg:text-2xl font-bold">
+          <p className="text-center text-4xl max-lg:text-xl font-bold">
             FULL-STACK WEB DEVELOPER
           </p>
         </div>
-        <div className="flex w-full max-md:items-center items-start justify-evenly max-md:flex-col flex-wrap gap-10 z-50 ">
+
+        <div className="flex w-full items-start justify-evenly flex-wrap gap-10 max-md:flex-col max-md:items-center">
           <DiscordActivity />
-          <div className="text-white rounded-xl max-w-md p-2 max-h-min overflow-auto acti">
-            <h1 className=" text-2xl font-semibold flex items-start justify-start space-x-2 w-full h-14 ">
+
+     
+          <div className="text-white rounded-xl w-full max-w-md max-h-min overflow-auto acti ">
+            <h1 className="text-2xl font-semibold flex items-start justify-start w-full h-14">
               My Lore
             </h1>
             <div className="flex gap-1 flex-col text-lg">
@@ -115,9 +117,7 @@ const Home = () => {
                 Full-stack wizard 🧙‍♂️ // React, Node, Mongo kinda vibe~
               </span>
               <span>Coding past midnight ⌨️🌙</span>
-              <span>
-                21 but built like a startup founder 🚀
-              </span>
+              <span>21 but built like a startup founder 🚀</span>
               <span>
                 Catch me live on VSCode 💻 or vibin&#39; to a podcast 🎧
               </span>
