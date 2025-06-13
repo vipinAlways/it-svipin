@@ -36,17 +36,17 @@ const HorizontalScrollCarousel = () => {
           transition={{ ease: "easeOut", duration: 0.5 }}
           viewport={{ amount: 0.5 }}
         >
-          <div className="absolute inset-0  flex flex-col md:flex-row justify-evenly max-md:justify-center max-md:gap-4 items-center w-full h-full bg-transparent z-20">
+          <div className="absolute inset-0  flex flex-col md:flex-row justify-evenly max-lgjustify-center max-lggap-4 items-center w-full h-full bg-transparent z-20">
           
             <div  className="flex flex-col h-96 md:h-auto justify-center items-center text-center">
               <div style={{padding:"10px"}} className="flex flex-col items-start justify-center gap-5">
-                <h1 className="text-7xl max-md:text-4xl">{card.title}</h1>
-                <p className="text-2xl max-w-md text-start max-md:text-xl">{card.description}</p>
+                <h1 className="text-7xl max-lgtext-4xl">{card.title}</h1>
+                <p className="text-2xl max-w-md text-start max-lgtext-xl">{card.description}</p>
               </div>
             </div>
 
             
-            <div style={{padding:"15px"}} className="h-96 w-[35%] max-md:w-full flex flex-col gap-2 items-center ">
+            <div style={{padding:"15px"}} className="h-96 w-[35%] max-lgw-full flex flex-col gap-2 items-center ">
               <div className=" h-full w-full rounded-lg relative border group border-white/70">
                 <Image
                 src={card.image ||"/non.png"}

@@ -75,7 +75,7 @@ const Home = () => {
         style={{ top: "-10px", left: "-60px" }}
       ></span>
 
-      <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-20 w-[30rem] h-20 flex items-center justify-center max-md:hidden">
+      <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-20 w-[30rem] h-20 flex items-center justify-center max-lghidden">
         <div className="max-sm:w-full w-full h-16 rounded-full backdrop-blur-md bg-[#06060644] flex items-center justify-evenly max-sm:rounded-3xl">
           {links.map((link) => (
             <button
@@ -105,7 +105,7 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="flex w-full items-start justify-evenly flex-wrap gap-10 max-md:flex-col max-md:items-center">
+        <div className="flex w-full items-start justify-evenly flex-wrap gap-10 max-lgflex-col max-lgitems-center">
           <DiscordActivity />
 
      
