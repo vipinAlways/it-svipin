@@ -69,14 +69,14 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-transparent relative p-4 px-4 font-[port]">
+    <div className="bg-transparent relative p-4 px-4 font-[port] flex flex-col gap-3">
       <span
         className="cursor z-10 fixed border-[2px] border-zinc-700 h-7 w-7 rounded-full shadow-md p-1"
         style={{ top: "-10px", left: "-60px" }}
       ></span>
 
       <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-20 w-[30rem] h-20 flex items-center justify-center max-md:hidden">
-        <div className="max-sm:w-full w-full h-16 rounded-full backdrop-blur-sm bg-[#06060644] flex items-center justify-evenly max-sm:rounded-3xl">
+        <div className="max-sm:w-full w-full h-16 rounded-full backdrop-blur-md bg-[#06060644] flex items-center justify-evenly max-sm:rounded-3xl">
           {links.map((link) => (
             <button
               key={link.title}
@@ -88,6 +88,8 @@ const Home = () => {
           ))}
         </div>
       </nav>
+
+      
 
       <section
         ref={Homesection}
@@ -126,9 +128,9 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <section ref={ProjectSection} className="w-full h-screen">
-        <div className="w-full h-screen relative">
+          <h1 className="text-3xl ">My Work</h1>
+      <section ref={ProjectSection} className="w-full h-fit">
+        <div className="w-full h-fit relative p-8 ">
           <HorizontalScrollCarousel />
         </div>
       </section>

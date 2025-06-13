@@ -93,7 +93,7 @@ export default function DiscordActivity() {
       ref={containerRef}
       className="text-white rounded-xl w-full max-w-md max-h-80 h-fit overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 relative flex flex-col gap-4 "
     >
-      <div className="sticky top-0 z-10 backdrop-blur-sm bg-[#06060644] p-2 w-full h-14">
+      <div className="sticky top-0 z-10  bg-black p-2 w-full h-14">
         <h2 className="text-2xl font-semibold">Current Activities</h2>
         <p className="text-lg text-gray-400 mb-2">Offline</p>
       </div>
@@ -131,7 +131,7 @@ export default function DiscordActivity() {
       </div>
 
       {status !== "offline" ? (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 overflow-hidden">
           {activities.map((activity, index) => {
             const imageUrl = activity.assets?.large_image
               ? activity.assets.large_image.startsWith("spotify:")

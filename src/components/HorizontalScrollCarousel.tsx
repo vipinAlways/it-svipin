@@ -1,68 +1,89 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { cards, CardType } from "@/constans";
+import React, { useRef } from "react";
+import { useScroll, useTransform, motion } from "framer-motion";
+import { cards } from "@/constans";
+import Image from "next/image";
+import { FaGithub } from "react-icons/fa";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import Link from "next/link";
 
-export default function HorizontalSnapScroll() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const isScrolling = useRef(false);
+const HorizontalScrollCarousel = () => {
+  const targetRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"],
+  });
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      const target = e.target as HTMLElement;
-      if (!container.contains(target)) return;
-
-      e.preventDefault();
-
-      if (isScrolling.current) return;
-
-      if (e.deltaY >= 60 && activeIndex < cards.length - 1) {
-        setActiveIndex((i) => i + 1);
-        isScrolling.current = true;
-      } else if (e.deltaY <= -30 && activeIndex > 0) {
-        setActiveIndex((i) => i - 1);
-        isScrolling.current = true;
-      }
-
-      setTimeout(() => {
-        isScrolling.current = false;
-      }, 700);
-    };
-
-    container.addEventListener("wheel", handleWheel);
-
-    return () => {
-      container.removeEventListener("wheel", handleWheel);
-    };
-  }, [activeIndex]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-76%"]);
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full overflow-hidden absolute top-0 left-0"
+   <section
+  ref={targetRef}
+  className="relative bg-transparent scroll-smooth h-[400vh] w-[95vw]"
+>
+  <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+    <motion.div
+      style={{ x }}
+      transition={{ ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="flex items-center gap-2"
     >
-      <motion.div
-        style={{
-          display: "flex",
-          width: `${cards.length * 100}vw`,
-          height: "100vh",
-        }}
-        animate={{ x: `-${activeIndex * 100}vw` }}
-        transition={{ duration: 0.2, ease: "easeInOut" }}
-      >
-        {cards.map((card: CardType, i) => (
-          <div
-            key={i}
-            className="w-full h-screen flex items-center justify-center backdrop-blur-sm bg-[#06060618]"
-          >
-            {card.title}
+      {cards.map((card) => (
+        <motion.div
+          key={card.id}
+          className={`relative   rounded-xl  glassy-container ${card.bgColor} `}
+          initial={{ scale: 0.98 }}
+          transition={{ ease: "easeOut", duration: 0.5 }}
+          viewport={{ amount: 0.5 }}
+        >
+          <div className="absolute inset-0  flex flex-col md:flex-row justify-evenly max-md:justify-center max-md:gap-4 items-center w-full h-full bg-transparent z-20">
+          
+            <div  className="flex flex-col h-96 md:h-auto justify-center items-center text-center">
+              <div style={{padding:"10px"}} className="flex flex-col items-start justify-center gap-5">
+                <h1 className="text-7xl max-md:text-4xl">{card.title}</h1>
+                <p className="text-2xl max-w-md text-start max-md:text-xl">{card.description}</p>
+              </div>
+            </div>
+
+            
+            <div style={{padding:"15px"}} className="h-96 w-[35%] max-md:w-full flex flex-col gap-2 items-center ">
+              <div className=" h-full w-full rounded-lg relative border group border-white/70">
+                <Image
+                src={card.image ||"/non.png"}
+                alt={card.title}
+                fill
+                loading="lazy"
+                className="object-cover object-center rounded-lg z-10 group-hover:opacity-0 transition-all duration-150 ease-in group-focus:opacity-0"
+                />
+                <Image
+                 src={"/non.png"}
+                alt={card.title}
+                fill
+                loading="lazy"
+                className="object-cover object-center rounded-lg z-[1]"
+                />
+              </div>
+              <div className="flex items-center justify-between gap-3 w-full">
+                <Link target="_blank" href={card.gitlink || ""} className="h-12 flex-1 rounded-lg border-zinc-500 border bg-white/20 backdrop-blur-2xl flex items-center justify-center new">
+                    <FaGithub className="w-8 h-8  text-[#cec8c5] rotate" />
+                </Link>
+                <Link target="_blank" href={card.liveLink||""} className="h-12 flex-1 rounded-lg border-zinc-500 border bg-white/20 backdrop-blur-2xl flex items-center justify-center  ">
+                  <FaExternalLinkAlt  className="w-6 h-6 text-[#cec8c5] rotate"/>
+                    
+                </Link>
+                
+        
+              </div>
+            </div>
           </div>
-        ))}
-      </motion.div>
-    </div>
+
+        </motion.div>
+      ))}
+    </motion.div>
+  </div>
+</section>
+
   );
-}
+};
+
+export default HorizontalScrollCarousel;
