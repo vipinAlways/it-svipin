@@ -89,8 +89,6 @@ const Home = () => {
         </div>
       </nav>
 
-      
-
       <section
         ref={Homesection}
         id="top"
@@ -108,7 +106,6 @@ const Home = () => {
         <div className="flex w-full items-start justify-evenly flex-wrap gap-10 max-lgflex-col max-lgitems-center">
           <DiscordActivity />
 
-     
           <div className="text-white rounded-xl w-full max-w-md max-h-min overflow-auto acti ">
             <h1 className="text-2xl font-semibold flex items-start justify-start w-full h-14">
               My Lore
@@ -128,10 +125,18 @@ const Home = () => {
           </div>
         </div>
       </section>
-          <h1 className="text-3xl ">My Work</h1>
-      <section ref={ProjectSection} className="w-full h-fit">
-        <div className="w-full h-fit relative p-8 ">
-          <HorizontalScrollCarousel />
+
+      <h2 className="text-4xl md:text-5xl font-bold text-center">
+        My Artworks
+      </h2>
+      <section
+        ref={ProjectSection}
+        className="w-full h-fit  flex items-center "
+      >
+        <div className="w-full max-w-7xl  flex items-center  flex-col ">
+          <div className="relative w-full">
+            <HorizontalScrollCarousel />
+          </div>
         </div>
       </section>
 

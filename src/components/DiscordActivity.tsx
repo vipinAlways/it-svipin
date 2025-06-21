@@ -29,34 +29,7 @@ export default function DiscordActivity() {
   const [status, setStatus] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
 
-    const handleWheel = (e: WheelEvent) => {
-      const isScrollable = container.scrollHeight > container.clientHeight;
-
-      if (isScrollable) {
-        const atTop = container.scrollTop === 0;
-        const atBottom =
-          container.scrollTop + container.clientHeight >=
-          container.scrollHeight;
-
-        if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) {
-          e.stopPropagation();
-        }
-      } else {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    };
-
-    container.addEventListener("wheel", handleWheel, { passive: false });
-
-    return () => {
-      container.removeEventListener("wheel", handleWheel);
-    };
-  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
