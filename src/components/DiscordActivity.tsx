@@ -56,7 +56,7 @@ export default function DiscordActivity() {
     const interval = setInterval(fetchPresence, 10000);
 
     return () => {
-      controller.abort();
+      
       clearInterval(interval);
     };
   }, []);
@@ -64,11 +64,11 @@ export default function DiscordActivity() {
   if (!status) {
   return (  <div
       ref={containerRef}
-      className="text-white rounded-xl w-full max-w-md max-h-80 h-fit overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 relative flex flex-col gap-4 "
+      className="rounded-xl w-full max-w-md max-h-80 h-fit overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 relative flex flex-col gap-4 "
     >
       <div className="sticky top-0 z-10  bg-black p-2 w-full h-14">
         <h2 className="text-2xl font-semibold">Current Activities</h2>
-        <p className="text-lg text-gray-400 mb-2">Offline</p>
+        <p className="text-lg mb-2">Offline</p>
       </div>
 
       <div className="flex flex-col gap-3">
@@ -85,7 +85,7 @@ export default function DiscordActivity() {
 
             <div className="text-xl">
               <p className="font-bold break-words">Just Dreaming</p>
-              <p className="text-lg text-gray-300 w-full"></p>
+              <p className="text-lg w-full"></p>
             </div>
           </div>
         </div>
@@ -96,11 +96,11 @@ export default function DiscordActivity() {
   return (
     <div
       ref={containerRef}
-      className="text-white rounded-xl w-full max-w-md max-h-80 h-fit overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 relative flex flex-col gap-4 "
+      className="rounded-xl w-full max-w-md max-h-80 h-fit overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 relative flex flex-col gap-4 "
     >
-      <div className="sticky top-0 z-10 backdrop-blur-sm bg-[#06060644] p-2 w-full h-14">
+      <div style= {{padding:"1px 10px"}}className="sticky top-0 z-10 backdrop-blur-sm bg-[#d1c6c644] dark:bg-[#06060644]  w-full h-14">
         <h2 className="text-2xl font-semibold">Current Activities</h2>
-        <p className="text-lg text-gray-400 mb-2">{status}</p>
+        <p className="text-lg  mb-2">{status}</p>
       </div>
 
       {status !== "offline" ? (
@@ -140,7 +140,7 @@ export default function DiscordActivity() {
                       <p className="font-bold break-words">
                         {activity.details}
                       </p>
-                      <p className="text-lg text-gray-300">{activity.state}</p>
+                      <p className="text-lg ">{activity.state}</p>
                       {start && <LiveElapsedTimer start={start} />}
                     </div>
                   </Link>
@@ -160,7 +160,7 @@ export default function DiscordActivity() {
                       <p className="font-bold break-words">
                         {activity.details || activity.name}
                       </p>
-                      <p className="text-lg text-gray-300 w-full">
+                      <p className="text-lg  w-full">
                         {activity.state}
                       </p>
                       {start && <LiveElapsedTimer start={start} />}
@@ -186,7 +186,7 @@ export default function DiscordActivity() {
 
               <div className="text-xl">
                 <p className="font-bold break-words">Just Dreaming</p>
-                <p className="text-lg text-gray-300 w-full"></p>
+                <p className="text-lg  w-full"></p>
               </div>
             </div>
           </div>
