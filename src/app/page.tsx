@@ -6,6 +6,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { easeInOut, motion, useMotionValue } from "framer-motion";
 import Lenis from "lenis";
 import { useTheme } from "next-themes";
+import { skills } from "@/constans";
+import Image from "next/image";
+import { IoMdMailOpen } from "react-icons/io";
+import { FaDiscord, FaGithub, FaLinkedin } from "react-icons/fa";
 
 interface NavLink {
   title: string;
@@ -34,6 +38,28 @@ const Home = () => {
     { title: "Projects", section: ProjectSection },
     { title: "Skill", section: SkillSection },
     { title: "Contact", section: ContactSection },
+  ];
+  const contact = [
+    {
+      link: "https://github.com/vipinAlways",
+      icon: <FaGithub className="w-10 h-10  " />,
+      name: "GitHub",
+    },
+    {
+      link: "https://discord.com/users/733300745469952011",
+      icon: <FaDiscord className="w-10 h-10  " />,
+      name: "Discord",
+    },
+    {
+      link: "https://www.linkedin.com/in/vipin-tiwari-a16556250?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      icon: <FaLinkedin className="w-10 h-10  " />,
+      name: "LinkedIn",
+    },
+    {
+      link: "mailto:vipinKumarti555@gmail.com",
+      icon: <IoMdMailOpen className="w-10 h-10  " />,
+      name: "Email",
+    },
   ];
 
   useEffect(() => {
@@ -130,8 +156,8 @@ const Home = () => {
 
             <div className="flex w-full items-start justify-evenly flex-wrap gap-10 max-lg:flex-col max-lg:items-center">
               <DiscordActivity />
-              <div className="rounded-xl w-full max-w-md max-h-min overflow-auto acti">
-                <h1 className="text-2xl font-semibold flex items-start justify-start w-full h-14">
+              <div className="w-full max-w-md  overflow-auto acti  flex flex-col gap-2">
+                <h1 className="text-2xl font-semibold flex items-start justify-start w-full ">
                   My Lore
                 </h1>
                 <div className="flex gap-1 flex-col text-lg">
@@ -148,6 +174,14 @@ const Home = () => {
                     Let&#39;s build something dope 💡✨
                   </span>
                 </div>
+                <a
+                  style={{ padding: "6px" }}
+                  href="/vipinResume.pdf"
+                  target="_blank"
+                  className=" skillCard h-10 bg-[#5B2333] dark:bg-[#F7F4F3] dark:text-[#5B2333] text-[#F7F4F3] text-xl rounded-lg text-center"
+                >
+                  Look At CV
+                </a>
               </div>
             </div>
           </motion.div>
@@ -182,21 +216,67 @@ const Home = () => {
         <div className="w-full h-full flex flex-col gap-10 ">
           <h1 className="lg:text-6xl text-start w-full">My Toolbox</h1>
           <div className="flex flex-wrap items-center gap-4 not-hover:scale-100 toolbox  hover:ease-linear duration-200">
-          {[1,2,3,4,5].map((item) => (
-              <div key={item} className="w-36 h-36 hover:scale-[1.01] border-zinc-500 dark:border flex items-center justify-center  rounded-xl border dark:shadow-[#F7F4F3] shadow-[#5B2333]  hover:ease-linear duration-200" ></div>
-          ))}
-          
+            {skills.map((item) => (
+              <div
+                key={item.name}
+                className="w-44 h-44 gap-4 hover:scale-[1.01] border-zinc-500 dark:border flex flex-col items-center justify-center  rounded-xl border dark:shadow-[#F7F4F3] shadow-[#5B2333]  skillCard"
+              >
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  height={30}
+                  width={60}
+                  className="object-cover"
+                />
+
+                <h1 className="">{item.name}</h1>
+              </div>
+            ))}
           </div>
         </div>
       </section>
       <section
         ref={ContactSection}
-        className="flex h-fit items-center justify-center w-full"
+        className="flex h-fit items-center justify-evenly w-full flex-col gap-6 py-8"
       >
-        <div
-       
-          className="w-full h-full flex flex-col gap-10"
-        ></div>
+        <p className="text-sm italic flex-1">
+          Well, since you&#39;ve made it this far... might as well take a look.
+        </p>
+
+        <div className="h-full flex  gap-10  flex-1 w-96 justify-around">
+          <div className="flex gap-5 items-center flex-1">
+            {contact.map((item, index: number) => (
+              <a
+                key={index}
+                href={item.link}
+                target="_blank"
+                className="relative group"
+              >
+                {item.icon}
+
+                <span
+                  style={{ padding: "5px" }}
+                  className="absolute -top-6 -translate-x-1/2 left-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out bg-[#5B2333] dark:bg-[#F7F4F3] dark:text-[#5B2333]  text-xs rounded-md"
+                >
+                  {item.name}
+                </span>
+              </a>
+            ))}
+          </div>
+          <a
+            style={{ padding: "6px" }}
+            href="/vipinResume.pdf"
+            target="_blank"
+            className=" skillCard h-10 bg-[#5B2333] dark:bg-[#F7F4F3] dark:text-[#5B2333] text-[#F7F4F3] text-xl rounded-lg text-center flex-1"
+          >
+            {" "}
+            Resume
+          </a>
+        </div>
+
+        <div className="flex items-center justify-center ">
+          <p className="text-lg text-center">Made with ❤️ by Vipin Tiwari</p>
+        </div>
       </section>
     </div>
   );

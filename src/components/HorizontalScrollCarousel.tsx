@@ -36,7 +36,7 @@ const HorizontalScrollCarousel = () => {
                   transition={{ ease: "easeOut", duration: 0.5 }}
                   viewport={{ amount: 0.5 }}
                 >
-                  <div style={{padding:"5px"}} className=" absolute inset-0 flex flex-col lg:flex-row justify-evenly max-lg:justify-center max-lg:gap-4 items-center lg:w-full h-full w-[90%] ">
+                  <div style={{padding:"5px"}} className="  absolute inset-0 flex flex-col lg:flex-row justify-evenly max-lg:justify-center max-lg:gap-4 items-center lg:w-full h-full w-[90%] ">
                     <div className="flex flex-col lg:h-96 h-64 md:h-auto justify-center items-center text-center">
                       <div
                         style={{ padding: "10px" }}

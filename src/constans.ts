@@ -8,6 +8,11 @@ export interface CardType {
   gitlink?:string;
   liveLink?:string
 };
+export interface Skill{
+  name:string;
+  image:string;
+  for:string;
+}
 
 export interface Activity {
   name: string;
@@ -63,4 +68,36 @@ export const cards: CardType[] = [
   },
 
 ];
+export const skills: Skill[] = [
+  {
+    name: "Next.js",
+    image: "/skillimage/next.svg",
+    for: "Building full-stack web apps",
+  },
+  {
+    name: "Prisma / MongoDB",
+    image: "/skillimage/db.svg",
+    for: "Type-safe database modeling",
+  },
 
+  {
+    name: "Framer Motion",
+    image: "/skillimage/framermotion.jpg",
+    for: "UI animations & scroll effects",
+  },
+        {
+          name: "Postman",
+          image: "/skillimage/postman.png",
+          for: "Check the API endpoints",
+        },
+  {
+    name: "Vercel",
+    image: "/skillimage/favicon.ico",
+    for: "Deployment & serverless hosting",
+  },
+  // {
+  //   name: "Lenis",
+  //   image: "/skillimage/verce.svg",
+  //   for: "Smooth scrolling animations",
+  // },
+];
