@@ -33,7 +33,8 @@ export const cards: CardType[] = [
     id: 1,
     description:"A Finance Manager App that helps you to manage your finance and track your expenses. It is a full stack app with authentication and authorization. It is built with Next.js, Tailwind CSS, MongoDB and Node.js.",
     bgColor:"bg-green-600/10 dark:bg-green-600/40",
-    image:"/projectPreview/finace_manager.jpeg"
+    image:"/projectPreview/finace_manager.jpeg",
+    gitlink:"https://github.com/vipinAlways/Finance-Manger"
   },
   {
     title: "Music Raze",
@@ -57,7 +58,8 @@ export const cards: CardType[] = [
     id: 4,
     description:"A Store It is a full-stack app that lets you store your files in the cloud. It features authentication and authorization, and is built using Next.js and Appwrite .",
     bgColor:"bg-[#12840B]/10 dark:bg-[#12840B]/40",
-    image:"/projectPreview/store_it.jpeg"
+    image:"/projectPreview/store_it.jpeg",
+    gitlink:"https://github.com/vipinAlways/Store-it"
   },
 
 ];

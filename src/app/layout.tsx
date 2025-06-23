@@ -34,7 +34,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Suspense fallback={<p>Loading...</p>}>
             <GlobalClickSound />
-            <main style={{ padding: "10px" }} className="relative text-[#5B2333] dark:text-[#F7F4F3]">
+            <main style={{ padding: "20px" }} className="relative text-[#5B2333] dark:text-[#F7F4F3]">
               {children}
             </main>
           </Suspense>

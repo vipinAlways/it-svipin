@@ -66,7 +66,7 @@ export default function DiscordActivity() {
       ref={containerRef}
       className="rounded-xl w-full max-w-md max-h-80 h-fit overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 relative flex flex-col gap-4 "
     >
-      <div className="sticky top-0 z-10  bg-black p-2 w-full h-14">
+      <div className="sticky top-0 z-10  p-2 w-full h-14">
         <h2 className="text-2xl font-semibold">Current Activities</h2>
         <p className="text-lg mb-2">Offline</p>
       </div>
@@ -98,7 +98,7 @@ export default function DiscordActivity() {
       ref={containerRef}
       className="rounded-xl w-full max-w-md max-h-80 h-fit overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 relative flex flex-col gap-4 "
     >
-      <div style= {{padding:"1px 10px"}}className="sticky top-0 z-10 backdrop-blur-sm bg-[#d1c6c644] dark:bg-[#06060644]  w-full h-14">
+      <div style= {{padding:"1px 10px"}}className="sticky top-0 z-10  w-full h-14">
         <h2 className="text-2xl font-semibold">Current Activities</h2>
         <p className="text-lg  mb-2">{status}</p>
       </div>

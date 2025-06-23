@@ -3,7 +3,7 @@
 import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
 import DiscordActivity from "@/components/DiscordActivity";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { easeInOut, motion, useMotionValue } from "framer-motion";
 import Lenis from "lenis";
 import { useTheme } from "next-themes";
 
@@ -18,10 +18,10 @@ const Home = () => {
 
   const Homesection = useRef<HTMLDivElement>(null);
   const ProjectSection = useRef<HTMLDivElement>(null);
-  const AboutSection = useRef<HTMLDivElement>(null);
+  const SkillSection = useRef<HTMLDivElement>(null);
+  const ContactSection = useRef<HTMLDivElement>(null);
 
   const scrollY = useMotionValue(0);
-
 
   useEffect(() => setMounted(true), []);
 
@@ -32,7 +32,8 @@ const Home = () => {
   const links: NavLink[] = [
     { title: "Home", section: Homesection },
     { title: "Projects", section: ProjectSection },
-    { title: "About", section: AboutSection },
+    { title: "Skill", section: SkillSection },
+    { title: "Contact", section: ContactSection },
   ];
 
   useEffect(() => {
@@ -82,10 +83,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-transparent relative p-4 px-4 font-[port] flex flex-col gap-3">
+    <div className="bg-transparent relative p-4 px-4 font-[port] flex flex-col lg:gap-20  gap-12">
       <span
-        className="cursor z-10 fixed border-[2px] border-zinc-700 h-7 w-7 rounded-full shadow-md p-1"
-        style={{ top: "-10px", left: "-60px" }}
+        className={`cursor z-10 fixed border-[2px]  h-7 w-7 rounded-full shadow-md p-1 -top-[10px] -left-[60px] bg-[#5B2333] dark:bg-[#F7F4F3]`}
       ></span>
 
       <nav className="hidden lg:flex fixed top-0 left-1/2 -translate-x-1/2 z-20 w-[30rem] h-20 items-center justify-center">
@@ -102,11 +102,7 @@ const Home = () => {
         </div>
       </nav>
 
-      <section
-        ref={Homesection}
-        id="top"
-        className="min-h-screen  w-full"
-      >
+      <section ref={Homesection} id="top" className="min-h-screen  w-full">
         {mounted && (
           <motion.div
             initial={{
@@ -114,11 +110,10 @@ const Home = () => {
               backgroundColor: initialColor,
             }}
             whileInView={{
-              backgroundColor: finalColor,
-              transition: { duration: 1 },
               clipPath: "circle(100%)",
+              backgroundColor: finalColor,
+              transition: { duration: 0.5, ease: easeInOut },
             }}
-            transition={{ duration: 0.1, ease: "easeInOut" }}
             viewport={{ once: true }}
             ref={Homesection}
             id="top"
@@ -173,20 +168,35 @@ const Home = () => {
             My Artworks
           </motion.h2>
         </div>
-        <div className="w-full max-w-7xl flex items-center flex-col">
-          <div className="relative w-full">
+        <div className="w-full h-full">
+          <div className="relative w-full flex items-center justify-center">
             <HorizontalScrollCarousel />
           </div>
         </div>
       </section>
 
       <section
-        ref={AboutSection}
-        className="flex h-screen items-center justify-center"
+        ref={SkillSection}
+        className="flex h-fit items-center justify-center w-full"
       >
-        <span className="font-semibold uppercase text-neutral-500">
-          Scroll up
-        </span>
+        <div className="w-full h-full flex flex-col gap-10 ">
+          <h1 className="lg:text-6xl text-start w-full">My Toolbox</h1>
+          <div className="flex flex-wrap items-center gap-4 not-hover:scale-100 toolbox  hover:ease-linear duration-200">
+          {[1,2,3,4,5].map((item) => (
+              <div key={item} className="w-36 h-36 hover:scale-[1.01] border-zinc-500 dark:border flex items-center justify-center  rounded-xl border dark:shadow-[#F7F4F3] shadow-[#5B2333]  hover:ease-linear duration-200" ></div>
+          ))}
+          
+          </div>
+        </div>
+      </section>
+      <section
+        ref={ContactSection}
+        className="flex h-fit items-center justify-center w-full"
+      >
+        <div
+       
+          className="w-full h-full flex flex-col gap-10"
+        ></div>
       </section>
     </div>
   );

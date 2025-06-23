@@ -117,3 +117,8 @@ body {
     transform: rotate(0deg);
   }
 }
+.toolbox:hover > :not(:hover) {
+  filter: blur(0.2px);
+  opacity: 0.9;
+  transform: scale(0.95);
+}
