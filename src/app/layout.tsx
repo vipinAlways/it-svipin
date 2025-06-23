@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F7F4F3] dark:bg-[#5B2333]  select-none`}
@@ -34,9 +34,16 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Suspense fallback={<p>Loading...</p>}>
             <GlobalClickSound />
-            <main style={{ padding: "20px" }} className="relative text-[#5B2333] dark:text-[#F7F4F3]">
+            <main className="relative text-[#5B2333] dark:text-[#F7F4F3] padd-10">
               {children}
             </main>
+            <footer className="w-full h-10 bg-black  text-white text-center">
+              <p>
+                &copy; {new Date().getFullYear().toLocaleString().replace(",","")} Real Toxic.
+                All rights reserved.
+              </p>
+            </footer>
+            <div className="h-20 w-full sm:hidden"></div>
           </Suspense>
         </ThemeProvider>
       </body>

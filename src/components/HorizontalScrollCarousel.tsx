@@ -20,7 +20,7 @@ const HorizontalScrollCarousel = () => {
       ref={targetRef}
       className="relative scroll-smooth h-[400vh] w-full"
     >
-      <div className="sticky lg:top-0 top-6 h-[80vh] flex items-center overflow-hidden lg:h-screen ">
+      <div className="sticky lg:top-0 top-6 h-[85vh] flex items-center overflow-hidden lg:h-screen ">
         <motion.div
           style={{ x }}
           transition={{ ease: "easeOut" }}
@@ -37,7 +37,7 @@ const HorizontalScrollCarousel = () => {
                   viewport={{ amount: 0.5 }}
                 >
                   <div style={{padding:"5px"}} className="  absolute inset-0 flex flex-col lg:flex-row justify-evenly max-lg:justify-center max-lg:gap-4 items-center lg:w-full h-full w-[90%] ">
-                    <div className="flex flex-col lg:h-96 h-64 md:h-auto justify-center items-center text-center">
+                    <div className="flex flex-col lg:h-96 h-64 md:h-auto justify-center  text-center">
                       <div
                         style={{ padding: "10px" }}
                         className="flex flex-col items-start justify-center gap-5"
@@ -49,7 +49,7 @@ const HorizontalScrollCarousel = () => {
                           {card.description}
                         </p>
                       </div>
-                      <a href={`${card.gitlink}/blob/main/README.md`} className="">Read More</a>
+                      <a target="_blank" style={{padding:"0.5rem"}} href={`${card.gitlink}/blob/main/README.md`} className="max-h-10 flex-1 rounded-lg  bg-white/20 backdrop-blur-3xl flex items-center justify-center ">Read More</a>
                     </div>
 
                     <div
@@ -62,15 +62,9 @@ const HorizontalScrollCarousel = () => {
                           alt={card.title}
                           fill
                           loading="lazy"
-                          className="object-cover object-center rounded-lg z-10 group-hover:opacity-0 transition-all duration-150 ease-in group-focus:opacity-0"
+                          className="object-cover object-center rounded-lg z-10 group-hover:opa0 transition-all duration-150 ease-in group-focus:opacity-0"
                         />
-                        <Image
-                          src={"/non.png"}
-                          alt={card.title}
-                          fill
-                          loading="lazy"
-                          className="object-cover object-center rounded-lg z-[1]"
-                        />
+                       
                       </div>
                       <div className="flex items-center justify-between gap-3 w-full">
                         <a

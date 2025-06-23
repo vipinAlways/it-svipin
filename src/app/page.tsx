@@ -10,10 +10,15 @@ import { skills } from "@/constans";
 import Image from "next/image";
 import { IoMdMailOpen } from "react-icons/io";
 import { FaDiscord, FaGithub, FaLinkedin } from "react-icons/fa";
+import { GoProjectSymlink } from "react-icons/go";
+import {  SiHyperskill } from "react-icons/si";
+import { MdHome } from "react-icons/md";
+import { GrConnect } from "react-icons/gr";
 
 interface NavLink {
   title: string;
   section: React.RefObject<HTMLDivElement | null>;
+  icon?: React.ReactNode;
 }
 
 const Home = () => {
@@ -23,7 +28,7 @@ const Home = () => {
   const Homesection = useRef<HTMLDivElement>(null);
   const ProjectSection = useRef<HTMLDivElement>(null);
   const SkillSection = useRef<HTMLDivElement>(null);
-  const ContactSection = useRef<HTMLDivElement>(null);
+  const ConnectSection = useRef<HTMLDivElement>(null);
 
   const scrollY = useMotionValue(0);
 
@@ -34,10 +39,10 @@ const Home = () => {
   const finalColor = currentTheme === "dark" ? "#5B2333" : "#F7F4F3";
 
   const links: NavLink[] = [
-    { title: "Home", section: Homesection },
-    { title: "Projects", section: ProjectSection },
-    { title: "Skill", section: SkillSection },
-    { title: "Contact", section: ContactSection },
+    { title: "Home", section: Homesection,icon:<MdHome className="h-6 w-6 flex-1"/> },
+    { title: "Projects", section: ProjectSection ,icon:<GoProjectSymlink className="h-6 w-6 flex-1"/>},
+    { title: "Skill", section: SkillSection ,icon:<SiHyperskill className="h-6 w-6 flex-1"/> },
+    { title: "Connect", section: ConnectSection,icon:<GrConnect className="h-6 w-6 flex-1"/> },
   ];
   const contact = [
     {
@@ -109,7 +114,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-transparent relative p-4 px-4 font-[port] flex flex-col lg:gap-20  gap-12">
+    <div className="bg-transparent relative p-4 px-4 font-[port] flex flex-col sm:gap-20  gap-6">
       <span
         className={`cursor z-10 fixed border-[2px]  h-7 w-7 rounded-full shadow-md p-1 -top-[10px] -left-[60px] bg-[#5B2333] dark:bg-[#F7F4F3]`}
       ></span>
@@ -123,6 +128,20 @@ const Home = () => {
               className="px-4 py-2 hover:underline text-xl"
             >
               {link.title}
+            </button>
+          ))}
+        </div>
+      </nav>
+      <nav className="md:hidden w-full fixed bottom-0 left-1/2 -translate-x-1/2 z-20 flex items-center justify-evenly padd-5">
+        <div className="w-full h-20 rounded-xl backdrop-blur-xl dark:bg-[#a2818144] bg-[#dfd5d27a] flex items-center justify-evenly">
+          {links.map((link) => (
+            <button
+              key={link.title}
+              onClick={() => scrollHandler(link.section)}
+              className="px-4 py-2 hover:underline text-base flex flex-col items-center "
+            >
+
+              {link.icon}
             </button>
           ))}
         </div>
@@ -160,7 +179,7 @@ const Home = () => {
                 <h1 className="text-2xl font-semibold flex items-start justify-start w-full ">
                   My Lore
                 </h1>
-                <div className="flex gap-1 flex-col text-lg">
+                <div className="flex gap-1 flex-col text-lg md:text-xl">
                   <span>Yo, I&#39;m Vipin 👾</span>
                   <span>
                     Full-stack wizard 🧙‍♂️ // React, Node, Mongo kinda vibe~
@@ -214,36 +233,36 @@ const Home = () => {
         className="flex h-fit items-center justify-center w-full"
       >
         <div className="w-full h-full flex flex-col gap-10 ">
-          <h1 className="lg:text-6xl text-start w-full">My Toolbox</h1>
-          <div className="flex flex-wrap items-center gap-4 not-hover:scale-100 toolbox  hover:ease-linear duration-200">
-            {skills.map((item) => (
-              <div
-                key={item.name}
-                className="w-44 h-44 gap-4 hover:scale-[1.01] border-zinc-500 dark:border flex flex-col items-center justify-center  rounded-xl border dark:shadow-[#F7F4F3] shadow-[#5B2333]  skillCard"
-              >
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  height={30}
-                  width={60}
-                  className="object-cover"
-                />
+          <h1 className="lg:text-6xl text-5xl leading-none text-start w-full ">MyToolbox</h1>
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:justify-start toolbox duration-200 hover:ease-linear">
+  {skills.map((item) => (
+    <div
+      key={item.name}
+      className="w-32 h-32 sm:w-40 sm:h-40 gap-2 sm:gap-4 hover:scale-[1.01] border-zinc-500 dark:border flex flex-col items-center justify-center rounded-xl border dark:shadow-[#F7F4F3] shadow-[#5B2333] skillCard transition-transform duration-200 ease-in-out"
+    >
+      <Image
+        src={item.image}
+        alt={item.name}
+        height={30}
+        width={60}
+        className="object-contain"
+      />
+      <h1 className="text-xs sm:text-base text-center">{item.name}</h1>
+    </div>
+  ))}
+</div>
 
-                <h1 className="">{item.name}</h1>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
       <section
-        ref={ContactSection}
+        ref={ConnectSection}
         className="flex h-fit items-center justify-evenly w-full flex-col gap-6 py-8"
       >
         <p className="text-sm italic flex-1">
           Well, since you&#39;ve made it this far... might as well take a look.
         </p>
 
-        <div className="h-full flex  gap-10  flex-1 w-96 justify-around">
+        <div className="h-full flex  gap-10 flex-col md:flex-row flex-1 lg:w-96  justify-around">
           <div className="flex gap-5 items-center flex-1">
             {contact.map((item, index: number) => (
               <a
@@ -278,6 +297,7 @@ const Home = () => {
           <p className="text-lg text-center">Made with ❤️ by Vipin Tiwari</p>
         </div>
       </section>
+      
     </div>
   );
 };

@@ -22,7 +22,12 @@
   font-style: normal;
 }
 
-
+.padd-10{
+  @apply lg:px-[2rem] lg:py-[1.5rem] px-4 py-4
+}
+.padd-5{
+  @apply  px-2
+}
 
 * {
   margin: 0;
