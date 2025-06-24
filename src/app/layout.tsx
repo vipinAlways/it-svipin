@@ -17,9 +17,33 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Vipin",
-  description: "The Developer's portfolio",
+  description: "Explore Vipin's personal portfolio, web projects, and design work. Frontend developer with a passion for building interactive experiences.",
+  keywords: ["Vipin", "Web Developer", "Frontend Developer", "Portfolio", "JavaScript", "React", "Next.js", "UI/UX Designer"],
+  authors: [{ name: "Vipin", url: "https://itsvipin.me" }],
+  creator: "Vipin",
+  metadataBase: new URL("https://itsvipin.me"),
+  openGraph: {
+    title: "Vipin Web Developer & Designer",
+    description: "Discover the portfolio of Vipin, a frontend developer focused on building modern, responsive, and creative websites.",
+    url: "https://itsvipin.me",
+    siteName: "Vipin Portfolio",
+    images: [
+      {
+        url: "/logo.png", 
+        width: 1200,
+        height: 630,
+        alt: "Vipin Portfolio Open Graph Image",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vipin  Web Developer & Designer",
+    description: "Check out Vipin's web development portfolio and projects.", 
+  },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
