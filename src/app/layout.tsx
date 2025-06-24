@@ -39,7 +39,7 @@ export default function RootLayout({
             </main>
             <footer className="w-full h-10 bg-black  text-white text-center">
               <p>
-                &copy; {new Date().getFullYear().toLocaleString().replace(",","")} Real Toxic.
+                &copy; {new Date().getFullYear().toLocaleString().replace(",","")} Vipin.
                 All rights reserved.
               </p>
             </footer>
