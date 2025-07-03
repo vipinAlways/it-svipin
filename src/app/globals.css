@@ -14,7 +14,6 @@
   }
 }
 
-
 @font-face {
   font-family: port;
   src: url("/fonts/L0x5DF4xlVMF-BfR8bXMIjhLq38.woff2") format("woff2");
@@ -22,11 +21,17 @@
   font-style: normal;
 }
 
-.padd-10{
-  @apply lg:px-[2rem] lg:py-[1.5rem] px-4 py-4
+.padd-10 {
+  @apply lg:px-[2rem] lg:py-[1.5rem] sm:px-8 px-4 py-4;
 }
-.padd-5{
-  @apply  px-2
+.padd-6 {
+  @apply lg:py-[1.5rem]  py-4;
+}
+.padd-5 {
+  @apply px-2;
+}
+.mt-20 {
+  @apply mt-[5rem];
 }
 
 * {
@@ -40,7 +45,6 @@ body {
   height: 100vh;
   width: 100%;
 }
-
 
 body {
   color: var(--foreground);
@@ -96,7 +100,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
- 
+
   backdrop-filter: blur(24px); /* blur-3xl ≈ 24px */
   -webkit-backdrop-filter: blur(24px); /* Safari support */
 }
@@ -137,4 +141,8 @@ body {
 .skillCard:hover {
   transform: rotateY(10deg) rotateX(5deg);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.check {
+  @apply md:px-[9%] md:py-[1%] p-[4%];
 }

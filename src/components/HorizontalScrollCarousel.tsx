@@ -20,7 +20,7 @@ const HorizontalScrollCarousel = () => {
       ref={targetRef}
       className="relative scroll-smooth h-[400vh] w-full"
     >
-      <div className="sticky lg:top-0 top-6 h-[85vh] flex items-center overflow-hidden lg:h-screen ">
+      <div className="sticky top-6  flex items-center overflow-hidden h-screen ">
         <motion.div
           style={{ x }}
           transition={{ ease: "easeOut" }}
@@ -29,33 +29,40 @@ const HorizontalScrollCarousel = () => {
         >
           {cards.map(
             (card) =>
-              card.liveLink&& (
+              card.liveLink && (
                 <motion.div
                   key={card.id}
                   className={`relative  glassy-container ${card.bgColor} `}
                   transition={{ ease: "easeOut", duration: 0.5 }}
                   viewport={{ amount: 0.5 }}
                 >
-                  <div style={{padding:"5px"}} className="  absolute inset-0 flex flex-col lg:flex-row justify-evenly max-lg:justify-center max-lg:gap-4 items-center lg:w-full h-full w-[90%] ">
-                    <div className="flex flex-col lg:h-96 h-64 md:h-auto justify-center  text-center">
-                      <div
-                        style={{ padding: "10px" }}
-                        className="flex flex-col items-start justify-center gap-5"
-                      >
-                        <h1 className="text-7xl max-lg:text-2xl">
+                  <div
+                    style={{ padding: "5px" }}
+                    className="absolute inset-0 flex lg:flex-row flex-col justify-evenly  items-center w-full  h-full   "
+                  >
+                    <div
+                      style={{ padding: "15px" }}
+                      className="flex flex-col h-fit justify-center  text-center  lg:w-[35%] w-4/5  gap-5"
+                    >
+                      <div className="flex flex-col items-start justify-center gap-5">
+                        <h1 className="lg:text-6xl sm:text-5xl font-bold">
                           {card.title}
                         </h1>
-                        <p className="text-2xl max-w-md text-start max-lg:text-sm">
+                        <p className="lg:text-lg text-xl  text-start  ">
                           {card.description}
                         </p>
                       </div>
-                      <a target="_blank" style={{padding:"0.5rem"}} href={`${card.gitlink}/blob/main/README.md`} className="max-h-10 flex-1 rounded-lg  bg-white/20 backdrop-blur-3xl flex items-center justify-center ">Read More</a>
+                      <a
+                        target="_blank"
+                        style={{ padding: "0.5rem" }}
+                        href={`${card.gitlink}/blob/main/README.md`}
+                        className="max-h-10 flex-1 rounded-lg  bg-white/20 backdrop-blur-3xl flex items-center justify-center "
+                      >
+                        Read More
+                      </a>
                     </div>
 
-                    <div
-                      style={{ padding: "15px" }}
-                      className="lg:h-96 h-64 w-[35%] max-lg:w-full flex flex-col gap-2 items-center "
-                    >
+                    <div className="h-96 lg:w-[35%] w-4/5 flex flex-col gap-6 items-center ">
                       <div className=" h-full w-full rounded-lg relative group ">
                         <Image
                           src={card.image || "/non.png"}
@@ -64,7 +71,6 @@ const HorizontalScrollCarousel = () => {
                           loading="lazy"
                           className="object-cover object-center rounded-lg z-10 group-hover:opa0 transition-all duration-150 ease-in group-focus:opacity-0"
                         />
-                       
                       </div>
                       <div className="flex items-center justify-between gap-3 w-full">
                         <a
