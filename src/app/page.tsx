@@ -239,7 +239,7 @@ const Home = () => {
               </div>
               <a
                 style={{ padding: "6px" }}
-                href="/vipinResume.pdf"
+                href="/Resume.pdf"
                 target="_blank"
                 className=" skillCard h-10 bg-[#5B2333] dark:bg-[#F7F4F3] dark:text-[#5B2333] text-[#F7F4F3] text-xl rounded-lg text-center"
               >
@@ -430,7 +430,7 @@ const Home = () => {
           </div>
           <a
             style={{ padding: "6px" }}
-            href="/vipinResume.pdf"
+            href="/Resume.pdf"
             target="_blank"
             className=" skillCard h-10 bg-[#5B2333] dark:bg-[#F7F4F3] dark:text-[#5B2333] text-[#F7F4F3] text-xl rounded-lg text-center flex-1"
           >
