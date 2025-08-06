@@ -2,11 +2,11 @@
 
 import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
 import DiscordActivity from "@/components/DiscordActivity";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import Lenis from "lenis";
 
-import { cards, skills } from "@/constans";
+import { Activity, cards, skills } from "@/constans";
 import Image from "next/image";
 import { IoMdMailOpen } from "react-icons/io";
 import {
@@ -19,6 +19,7 @@ import { GoProjectSymlink } from "react-icons/go";
 import { SiHyperskill } from "react-icons/si";
 import { MdHome } from "react-icons/md";
 import { GrConnect } from "react-icons/gr";
+import PreLoader from "@/components/PreLoader";
 
 interface NavLink {
   title: string;
@@ -27,6 +28,9 @@ interface NavLink {
 }
 
 const Home = () => {
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [status, setStatus] = useState<string>("");
+  const [data, setData] = useState();
   const Homesection = useRef<HTMLDivElement>(null);
   const ProjectSection = useRef<HTMLDivElement>(null);
   const SkillSection = useRef<HTMLDivElement>(null);
@@ -125,6 +129,44 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchPresence = async () => {
+      try {
+        const res = await fetch(
+          "https://api.lanyard.rest/v1/users/733300745469952011",
+          { signal: controller.signal }
+        );
+        const json = await res.json();
+
+        if (json.success) {
+          const data = json.data;
+          setData(data);
+          setStatus(data.discord_status);
+          setActivities(data.activities || []);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          throw new Error("Failed to fetch presence: " + error.message);
+        } else {
+          throw new Error("Failed to fetch presence: Unknown error");
+        }
+      }
+    };
+
+    fetchPresence();
+    const interval = setInterval(fetchPresence, 10000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [status]);
+
+  if (!data) {
+    return <PreLoader />;
+  }
+
   return (
     <div className="bg-transparent relative p-4 px-4 font-[port] flex flex-col sm:gap-20  gap-6">
       <span
@@ -177,7 +219,7 @@ const Home = () => {
           <div className="flex w-full litems-start justify-evenly flex-wrap gap-10 max-md:flex-col items-cente">
             <div className="max-lg:flex-1 flex items-start">
               {" "}
-              <DiscordActivity />
+              <DiscordActivity activities={activities} status={status} />
             </div>
             <div className="w-full max-w-md  overflow-auto acti  flex flex-col gap-2 flex-1">
               <h1 className="md:text-2xl text-xl font-semibold">My Lore</h1>
@@ -336,7 +378,7 @@ const Home = () => {
             </div>
 
             <div className="flex items-start justify-around ">
-              {skills.map(({  image, name }) => (
+              {skills.map(({ image, name }) => (
                 <div key={image} className="group relative">
                   <Image
                     src={image}

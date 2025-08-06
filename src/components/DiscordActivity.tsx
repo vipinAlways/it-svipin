@@ -24,39 +24,10 @@ function LiveElapsedTimer({ start }: { start: number }) {
   );
 }
 
-export default function DiscordActivity() {
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [status, setStatus] = useState<string | null>("");
+export default function DiscordActivity({status,activities}:{status:string,activities:Activity[]}) {
+ 
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchPresence = async () => {
-      try {
-        const res = await fetch(
-          "https://api.lanyard.rest/v1/users/733300745469952011",
-          { signal: controller.signal }
-        );
-        const json = await res.json();
-
-        if (json.success) {
-          const data = json.data;
-          setStatus(data.discord_status);
-          setActivities(data.activities || []);
-        }
-      } catch (error) {
-        console.error("Failed to fetch presence:", error);
-      }
-    };
-
-    fetchPresence();
-    const interval = setInterval(fetchPresence, 10000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [status]);
+  console.log('activities', activities)
 
   if (!status) {
     return (
@@ -64,33 +35,35 @@ export default function DiscordActivity() {
         ref={containerRef}
         className="rounded-xl w-full max-w-md max-h-80 h-fit overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 relative flex flex-col gap-4 "
       >
-         <div className="sticky top-0 z-10  w-full h-14">
-        <h2 className="md:text-2xl text-xl font-semibold">Current Activities</h2>
-        <p className="text-lg  mb-2">Offlie</p>
-      </div>
+        <div className="sticky top-0 z-10  w-full h-14">
+          <h2 className="md:text-2xl text-xl font-semibold">
+            Current Activities
+          </h2>
+          <p className="text-lg  mb-2">Offlie</p>
+        </div>
 
         <div className="flex flex-col gap-3">
-              <div className="flex items-center mb-3 gap-4">
-                <div
-                  className="flex items-center gap-6"
-                  style={{ padding: "10px" }}
-                >
-                  <Image
-                    src={"/non2.png"}
-                    alt={"chill"}
-                    className="object-cover rounded-tl-lg rounded-br-lg border border-[#F7F4F3] "
-                    height={56}
-                    width={96}
-                    loading="lazy"
-                  />
+          <div className="flex items-center mb-3 gap-4">
+            <div
+              className="flex items-center gap-6"
+              style={{ padding: "10px" }}
+            >
+              <Image
+                src={"/non2.png"}
+                alt={"chill"}
+                className="object-cover rounded-tl-lg rounded-br-lg border border-[#F7F4F3] "
+                height={56}
+                width={96}
+                loading="lazy"
+              />
 
-                  <div className="text-xl">
-                    <p className="font-bold break-words">Just Chilling</p>
-                    <p className="text-lg w-full"></p>
-                  </div>
-                </div>
+              <div className="text-xl">
+                <p className="font-bold break-words">Just Chilling</p>
+                <p className="text-lg w-full"></p>
               </div>
             </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -101,7 +74,9 @@ export default function DiscordActivity() {
       className="rounded-xl w-full max-w-md max-h-80 h-fit overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 relative flex flex-col gap-4 "
     >
       <div className="sticky top-0 z-10  w-full h-14">
-        <h2 className="md:text-2xl text-xl font-semibold">Current Activities</h2>
+        <h2 className="md:text-2xl text-xl font-semibold">
+          Current Activities
+        </h2>
         <p className="text-lg  mb-2">{status}</p>
       </div>
 
