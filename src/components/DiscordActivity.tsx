@@ -27,7 +27,7 @@ function LiveElapsedTimer({ start }: { start: number }) {
 export default function DiscordActivity({status,activities}:{status:string,activities:Activity[]}) {
  
   const containerRef = useRef<HTMLDivElement>(null);
-  console.log('activities', activities)
+ 
 
   if (!status) {
     return (

@@ -4,7 +4,7 @@ import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
 import DiscordActivity from "@/components/DiscordActivity";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
-import Lenis from "lenis";
+import Lenis from "@studio-freight/lenis"
 
 import { Activity, cards, skills } from "@/constans";
 import Image from "next/image";
