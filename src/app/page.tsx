@@ -90,9 +90,7 @@ const Home = () => {
       requestAnimationFrame(update);
     };
 
-    lenis.on("scroll", ({ scroll }: { scroll: number }) => {
-     
-    });
+    lenis.on("scroll",()=>{});
 
     requestAnimationFrame(update);
     return () => lenis.destroy();
