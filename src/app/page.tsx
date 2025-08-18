@@ -3,7 +3,7 @@
 import HorizontalScrollCarousel from "@/components/HorizontalScrollCarousel";
 import DiscordActivity from "@/components/DiscordActivity";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import Lenis from "@studio-freight/lenis"
 
 import { Activity, cards, skills } from "@/constans";
@@ -36,7 +36,7 @@ const Home = () => {
   const SkillSection = useRef<HTMLDivElement>(null);
   const ConnectSection = useRef<HTMLDivElement>(null);
 
-  const scrollY = useMotionValue(0);
+
 
   const links: NavLink[] = [
     {
@@ -91,12 +91,12 @@ const Home = () => {
     };
 
     lenis.on("scroll", ({ scroll }: { scroll: number }) => {
-      scrollY.set(scroll);
+     
     });
 
     requestAnimationFrame(update);
     return () => lenis.destroy();
-  }, [scrollY]);
+  });
 
   const scrollHandler = useCallback(
     (ref: React.RefObject<HTMLDivElement | null>) => {
