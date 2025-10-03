@@ -13,14 +13,14 @@ const HorizontalScrollCarousel = () => {
     offset: ["start start", "end end"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-68%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
 
   return (
     <section
       ref={targetRef}
       className="relative scroll-smooth h-[400vh] w-full"
     >
-      <div className="sticky top-6  flex items-center overflow-hidden h-screen ">
+      <div className="sticky top-20  flex items-center overflow-hidden h-[85vh]  ">
         <motion.div
           style={{ x }}
           transition={{ ease: "easeOut" }}
@@ -32,7 +32,7 @@ const HorizontalScrollCarousel = () => {
               card.liveLink && (
                 <motion.div
                   key={card.id}
-                  className={`relative  glassy-container ${card.bgColor} `}
+                  className={`relative  glassy-container ${card.bgColor}  rounded-md `}
                   transition={{ ease: "easeOut", duration: 0.5 }}
                   viewport={{ amount: 0.5 }}
                 >
@@ -62,10 +62,10 @@ const HorizontalScrollCarousel = () => {
                       </a>
                     </div>
 
-                    <div className="h-96 lg:w-[35%] w-4/5 flex flex-col gap-6 items-center ">
+                    <div className="h-[25rem] lg:w-[45%] w-4/5 flex flex-col gap-6 items-center ">
                       <div className=" h-full w-full rounded-lg relative group ">
                         <Image
-                          src={card.image || "/non.png"}
+                          src={card.image ?? "/non.png"}
                           alt={card.title}
                           fill
                           loading="lazy"
@@ -75,14 +75,14 @@ const HorizontalScrollCarousel = () => {
                       <div className="flex items-center justify-between gap-3 w-full">
                         <a
                           target="_blank"
-                          href={card.gitlink || ""}
+                          href={card.gitlink ?? ""}
                           className="h-12 flex-1 rounded-lg border-zinc-500 dark:border bg-white/20 backdrop-blur-3xl flex items-center justify-center new group"
                         >
                           <FaGithub className="w-8 h-8  text-[#cec8c5] rotate " />
                         </a>
                         <a
                           target="_blank"
-                          href={card.liveLink || ""}
+                          href={card.liveLink ?? ""}
                           className="h-12 flex-1 rounded-lg border-zinc-500 dark:border bg-white/20 backdrop-blur-2xl flex items-center justify-center  "
                         >
                           <FaExternalLinkAlt className="w-6 h-6 text-[#cec8c5] rotate" />

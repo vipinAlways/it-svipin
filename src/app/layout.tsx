@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "next-themes";
+import { Suspense } from "react";
+import PreLoader from "@/components/PreLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,9 +68,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F7F4F3] dark:bg-[#5B2333]  select-none`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <main className="relative text-[#5B2333] dark:text-[#F7F4F3] padd-10">
-            {children}
-          </main>
+          <Suspense fallback={<PreLoader />}>
+            <main className="relative text-[#5B2333] dark:text-[#F7F4F3] padd-10">
+              {children}
+            </main>
+          </Suspense>
 
           <footer className="w-full h-10 bg-black  text-white text-center">
             <p>
